@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="gl"><head><meta charset="utf-8">
+<title>Código Secreto Imaxes</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Código Imaxes">
+<meta name="theme-color" content="#0b0b0e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-ms-touch-action:manipulation;touch-action:manipulation}
+html,body{margin:0;height:100%;background:#0b0b0e;color:#fff;font-family:-apple-system,Helvetica,Arial,sans-serif;overflow:hidden}
+#app{height:100%;padding:8px;padding-top:calc(8px + env(safe-area-inset-top,0px));display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
+.c{margin:auto;text-align:center;padding:0 12px}
+h1{font-size:48px;margin:0 0 10px}p{color:#aaa;font-size:21px;margin:0 0 30px}
+.b{border:0;border-radius:12px;color:#fff;font-weight:700;font-size:17px;padding:0 16px;height:45px;font-family:inherit;margin:0 4px}
+.big{font-size:25px;width:330px;height:72px}
+.r{background:#e00f0f}.a{background:#0f40d9}.g{background:#444}
+.lg{margin-bottom:26px}.j{margin-top:34px}.j input{height:45px;width:130px;border-radius:9px;border:0;font-size:20px;text-align:center;text-transform:uppercase;margin-right:10px;-webkit-user-select:text;user-select:text}
+.top{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;height:44px;margin-bottom:6px}
+.top .b{height:36px;font-size:15px}
+.tur{font-size:20px;font-weight:700;background:#08080a;border-radius:10px;padding:6px 18px}
+.grid{-webkit-flex:1;flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);grid-gap:7px;min-height:0}
+.w,.k{position:relative;border-radius:9px;border:1px solid #8c8c8c;background-color:#e0d1ad;background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;min-height:0}
+.k{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;font-size:4vw;font-weight:700;text-shadow:0 0 6px rgba(0,0,0,.6)}
+.o{position:absolute;left:0;top:0;right:0;bottom:0;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;font-size:5vw;font-weight:700}
+.o0{background:rgba(224,15,15,.78)}.o1{background:rgba(15,64,217,.78)}.o2{background:rgba(110,71,36,.78)}.o3{background:rgba(0,0,0,.88)}
+.ind{font-weight:700;font-size:21px}
+.code{font-size:15px;color:#aaa;text-align:center;margin-bottom:6px}.code b{color:#fff;letter-spacing:2px;font-size:20px}
+.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.75);display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;z-index:9}
+.ov div{background:#1b1b20;border-radius:16px;padding:28px 40px;text-align:center}.ov h2{margin:0 0 8px;font-size:34px}.ov p{margin:0 0 22px;color:#ddd;font-size:22px}
+@media (orientation:portrait){h1{font-size:40px}.k{font-size:6vw}.o{font-size:8vw}}
+</style></head><body><div id="app"></div>
+<script>
+var NIMG=312,NB=20;
+var STR={
+gl:{t:'CÓDIGO SECRETO',s:'O xogo de imaxes, pistas e espías',go:'COMEZAR PARTIDA',cod:'CÓDIGO',ver:'VER CLAVE (XEFE DE ESPÍAS)',nk:'↻ NOVA CLAVE',sh:'AMOSAR IMAXES',hm:'INICIO',st:'COMEZAN ',av:'Fai unha foto desta clave. Código da partida: ',tn:'TURNO: ',pt:'PASAR TURNO',ck:'CLAVE',cf:'Só para o xefe de espías. Amosar a clave?',cq:'Saír á pantalla de inicio? Perderase a partida actual.',bm:'💣 BOMBA!',lo:'Perden ',wi:'GAÑAN ',vi:'VITORIA!',ng:'NOVA PARTIDA',vb:'VER TABOLEIRO',tm:['VERMELLOS','AZUIS']},
+es:{t:'CÓDIGO SECRETO',s:'El juego de imágenes, pistas y espías',go:'COMENZAR PARTIDA',cod:'CÓDIGO',ver:'VER CLAVE (JEFE DE ESPÍAS)',nk:'↻ NUEVA CLAVE',sh:'MOSTRAR IMÁGENES',hm:'INICIO',st:'EMPIEZAN ',av:'Haz una foto de esta clave. Código de la partida: ',tn:'TURNO: ',pt:'PASAR TURNO',ck:'CLAVE',cf:'Solo para el jefe de espías. ¿Mostrar la clave?',cq:'¿Salir a la pantalla de inicio? Se perderá la partida actual.',bm:'💣 ¡BOMBA!',lo:'Pierden ',wi:'GANAN ',vi:'¡VICTORIA!',ng:'NUEVA PARTIDA',vb:'VER TABLERO',tm:['ROJOS','AZULES']}};
+var COL=['#e00f0f','#3d6bff','#e0d1ad','#000'],SYM=['◆','●','','✕'],TOK=['roja.jpg','azul.jpg','','negra.jpg'];
+var app=document.getElementById('app'),G=null,AC=null,LANG='gl';
+try{if(localStorage.getItem('csl')==='es')LANG='es'}catch(e){}
+function S(k){return STR[LANG][k]}
+function $(i){return document.getElementById(i)}
+function pad(n){return ('00'+n).slice(-3)}
+function clearOv(){var o=document.querySelectorAll('.ov');for(var i=0;i<o.length;i++)o[i].parentNode.removeChild(o[i])}
+function hash(s){var h=1779033703^s.length;for(var i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuf(a,r){for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function newSeed(){var s=LANG==='es'?'C':'G';for(var i=0;i<5;i++)s+='ABCDEFHJKLMNPQRSTUVWXYZ23456789'.charAt(Math.floor(Math.random()*31));return s}
+function build(seed){
+  LANG=seed.charAt(0)==='C'?'es':'gl';try{localStorage.setItem('csl',LANG)}catch(e){}
+  var r=rng(hash(seed)),ids=[],i;for(i=1;i<=NIMG;i++)ids.push(i);
+  var st=r()<.5?0:1,k=[];
+  for(i=0;i<8;i++)k.push(st);for(i=0;i<7;i++)k.push(1-st);for(i=0;i<4;i++)k.push(2);k.push(3);
+  G={seed:seed,imgs:shuf(ids,r).slice(0,NB),key:shuf(k,r),start:st,turn:st,found:[],over:false,res:null};
+  G.imgs.forEach(function(n){(new Image()).src='img/'+pad(n)+'.jpg'});
+}
+function save(){try{localStorage.setItem('csi',JSON.stringify({s:G.seed,f:G.found,t:G.turn,o:G.over,r:G.res}))}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem('csi'));if(d&&d.s){build(d.s);G.found=d.f||[];G.turn=d.t;G.over=!!d.o;G.res=d.r||null;return true}}catch(e){}return false}
+function snd(k){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+  var q={ok:[[660,0],[880,.1]],no:[[220,0],[180,.12]],bomb:[[120,0],[90,.15],[60,.3]],win:[[523,0],[659,.12],[784,.24],[1047,.36]]}[k];
+  q.forEach(function(n){var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+n[1];o.type=k==='bomb'?'sawtooth':'triangle';o.frequency.value=n[0];
+  g.gain.setValueAtTime(.25,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.3)})}catch(e){}}
+function setLang(l){LANG=l;try{localStorage.setItem('csl',l)}catch(e){}home()}
+function home(){
+  clearOv();try{history.replaceState(null,'',location.pathname)}catch(e){}
+  app.innerHTML='<div class="c"><h1>'+S('t')+'</h1><p>'+S('s')+'</p>'+
+  '<div class="lg"><button class="b '+(LANG==='gl'?'a':'g')+'" id="lgl">GALEGO</button><button class="b '+(LANG==='es'?'a':'g')+'" id="les">CASTELÁN</button></div>'+
+  '<button class="b r big" id="go">'+S('go')+'</button>'+
+  '<div class="j"><input id="cod" placeholder="'+S('cod')+'" maxlength="6" autocapitalize="characters" autocorrect="off"><button class="b g" id="ver">'+S('ver')+'</button></div></div>';
+  $('lgl').onclick=function(){setLang('gl')};$('les').onclick=function(){setLang('es')};
+  $('go').onclick=function(){snd('ok');build(newSeed());save();keyScreen(true)};
+  $('ver').onclick=function(){var c=$('cod').value.replace(/\s/g,'').toUpperCase();if(c.length<3)return;build(c);keyScreen(false)};
+}
+function keyScreen(canPlay){
+  clearOv();
+  var h='<div class="top"><button class="b g" id="nv">'+S('nk')+'</button><div class="ind" style="color:'+COL[G.start]+'">● '+S('st')+S('tm')[G.start]+'</div>'+
+  (canPlay?'<button class="b a" id="pl">'+S('sh')+'</button>':'<button class="b g" id="hm">'+S('hm')+'</button>')+'</div>'+
+  '<div class="code">'+S('av')+'<b>'+G.seed+'</b></div><div class="grid">';
+  G.key.forEach(function(t){h+='<div class="k" style="background-color:'+COL[t]+';'+(TOK[t]?'background-image:url('+TOK[t]+')':'')+'">'+SYM[t]+'</div>'});
+  app.innerHTML=h+'</div>';
+  $('nv').onclick=function(){build(newSeed());if(canPlay)save();keyScreen(canPlay)};
+  if(canPlay)$('pl').onclick=board;else $('hm').onclick=home;
+}
+function turnTxt(){return '<span style="color:'+COL[G.turn]+'">'+S('tn')+S('tm')[G.turn]+'</span>'}
+function cover(el,t){var o=document.createElement('div');o.className='o o'+t;o.innerHTML=SYM[t];el.appendChild(o)}
+function board(){
+  clearOv();
+  var h='<div class="top"><div><button class="b g" id="hm">'+S('hm')+'</button><button class="b g" id="ck">'+S('ck')+'</button></div><div class="tur" id="tu">'+turnTxt()+'</div><button class="b g" id="pt">'+S('pt')+'</button></div><div class="grid" id="gr">';
+  G.imgs.forEach(function(n,i){h+='<div class="w" data-i="'+i+'" style="background-image:url(img/'+pad(n)+'.jpg)"></div>'});
+  app.innerHTML=h+'</div>';
+  var cells=$('gr').children;G.found.forEach(function(i){cover(cells[i],G.key[i])});
+  $('gr').onclick=function(e){var b=e.target;while(b&&b!==this&&!b.getAttribute('data-i'))b=b.parentNode;if(b&&b!==this)tap(+b.getAttribute('data-i'),b)};
+  $('pt').onclick=function(){if(!G.over)turn()};
+  $('hm').onclick=function(){if(G.over||confirm(S('cq')))home()};
+  $('ck').onclick=function(){if(confirm(S('cf')))keyScreen(true)};
+  if(G.over&&G.res)endModal();
+}
+function turn(){G.turn=1-G.turn;$('tu').innerHTML=turnTxt();save()}
+function endModal(){
+  clearOv();var bomb=G.res[0]==='b',w=G.res[1],d=document.createElement('div');d.className='ov';
+  d.innerHTML='<div><h2>'+(bomb?S('bm'):S('vi'))+'</h2><p>'+(bomb?S('lo')+S('tm')[1-w]+'. ':'')+S('wi')+S('tm')[w]+'</p>'+
+  '<button class="b '+(bomb?'g':'r')+'" id="mn">'+S('ng')+'</button><button class="b g" id="mv">'+S('vb')+'</button></div>';
+  document.body.appendChild(d);
+  $('mn').onclick=function(){clearOv();build(newSeed());save();keyScreen(true)};
+  $('mv').onclick=clearOv;
+}
+function tap(i,b){
+  if(G.over||G.found.indexOf(i)>=0)return;
+  var t=G.key[i];G.found.push(i);cover(b,t);
+  if(t===3){G.over=true;G.res=['b',1-G.turn];save();snd('bomb');setTimeout(endModal,500);return}
+  var left=[0,0];G.key.forEach(function(k,j){if(k<2&&G.found.indexOf(j)<0)left[k]++});
+  if(!left[0]||!left[1]){G.over=true;G.res=['w',left[0]?1:0];save();snd('win');setTimeout(endModal,200);return}
+  if(t===G.turn){snd('ok');save()}else{snd('no');turn()}
+}
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
+var hs=location.hash.replace('#','').toUpperCase();
+if(hs.length>=3){build(hs);keyScreen(false)}else if(load())board();else home();
+</script></body></html>
