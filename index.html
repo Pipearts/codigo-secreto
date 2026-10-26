@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="gl"><head><meta charset="utf-8">
+<title>Código Secreto</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Código Secreto">
+<meta name="theme-color" content="#0b0b0e">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html,body{margin:0;height:100%;background:#0b0b0e;color:#fff;font-family:-apple-system,Helvetica,Arial,sans-serif;overflow:hidden}
+#app{height:100%;padding:8px;padding-top:calc(8px + env(safe-area-inset-top,0px));display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}
+.c{margin:auto;text-align:center;padding:0 12px}
+h1{font-size:48px;margin:0 0 10px}p{color:#aaa;font-size:21px;margin:0 0 40px}
+.b{border:0;border-radius:12px;color:#fff;font-weight:700;font-size:17px;padding:0 16px;height:45px;font-family:inherit}
+.big{font-size:25px;width:330px;height:72px}
+.r{background:#e00f0f}.a{background:#0f40d9}.g{background:#444}
+.j{margin-top:34px}.j input{height:45px;width:130px;border-radius:9px;border:0;font-size:20px;text-align:center;text-transform:uppercase;margin-right:10px;-webkit-user-select:text;user-select:text}
+.top{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;height:44px;margin-bottom:6px}
+.top .b{height:36px;font-size:15px}
+.tur{font-size:20px;font-weight:700;background:#08080a;border-radius:10px;padding:6px 18px}
+.grid{-webkit-flex:1;flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(5,1fr);grid-gap:7px;min-height:0}
+.w,.k{border-radius:9px;border:1px solid #8c8c8c;background:#e0d1ad;color:#000;font-weight:700;font-family:inherit;padding:2px;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:stretch;align-items:stretch;-webkit-justify-content:center;justify-content:center;font-size:2.1vw;white-space:nowrap;overflow:hidden}
+.w span{-webkit-flex:1;flex:1;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center}
+.w span.f{-webkit-transform:rotate(180deg);transform:rotate(180deg)}
+.w i{height:1px;background:rgba(140,107,71,.7);margin:0 3px}
+.w.l{font-size:1.55vw}
+.c0{background:#e00f0f!important;color:#fff!important}.c1{background:#0f40d9!important;color:#fff!important}
+.c2{background:#6e4724!important;color:#fff!important}.c3{background:#000!important;color:#fff!important}
+.w[disabled]{opacity:1}
+.k{font-size:2vw;-webkit-align-items:center;align-items:center}.k b{font-size:3.2vw;line-height:1}
+.k.t2{color:#000}.ind{font-weight:700;font-size:21px}
+.code{font-size:15px;color:#aaa}.code b{color:#fff;letter-spacing:2px;font-size:20px}
+.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.75);display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;z-index:9}
+.ov div{background:#1b1b20;border-radius:16px;padding:28px 40px;text-align:center}.ov h2{margin:0 0 8px;font-size:34px}.ov p{margin:0 0 22px;color:#ddd;font-size:22px}
+@media (orientation:portrait){.w,.k{font-size:2.5vw}.w.l{font-size:1.9vw}.k b{font-size:4vw}h1{font-size:40px}}
+</style></head><body><div id="app"></div>
+<script src="palabras.js"></script>
+<script>
+var T=[{n:'VERMELLOS',s:'VERMELLOS',c:'#e00f0f'},{n:'AZUIS',s:'AZUIS',c:'#3d6bff'}],SYM=['◆','●','','✕'];
+var app=document.getElementById('app'),G=null,AC=null;
+function $(i){return document.getElementById(i)}
+function hash(s){var h=1779033703^s.length;for(var i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function shuf(a,r){for(var i=a.length-1;i>0;i--){var j=Math.floor(r()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function newSeed(){var s='';for(var i=0;i<5;i++)s+='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'.charAt(Math.floor(Math.random()*32));return s}
+function build(seed){
+  var r=rng(hash(seed)),uniq=PALABRAS.filter(function(w,i){return PALABRAS.indexOf(w)===i});
+  var st=r()<.5?0:1,k=[],i;
+  for(i=0;i<9;i++)k.push(st);for(i=0;i<8;i++)k.push(1-st);for(i=0;i<7;i++)k.push(2);k.push(3);
+  G={seed:seed,words:shuf(uniq,r).slice(0,25),key:shuf(k,r),start:st,turn:st,found:[],over:false};
+}
+function save(){try{localStorage.setItem('cs',JSON.stringify({s:G.seed,f:G.found,t:G.turn,o:G.over}))}catch(e){}}
+function load(){try{var d=JSON.parse(localStorage.getItem('cs'));if(d&&d.s){build(d.s);G.found=d.f||[];G.turn=d.t;G.over=!!d.o;return true}}catch(e){}return false}
+function snd(k){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();
+  var q={ok:[[660,0],[880,.1]],no:[[220,0],[180,.12]],bomb:[[120,0],[90,.15],[60,.3]],win:[[523,0],[659,.12],[784,.24],[1047,.36]]}[k];
+  q.forEach(function(n){var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+n[1];o.type=k==='bomb'?'sawtooth':'triangle';o.frequency.value=n[0];
+  g.gain.setValueAtTime(.25,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.3)})}catch(e){}}
+function home(){
+  history.replaceState(null,'',location.pathname);
+  app.innerHTML='<div class="c"><h1>CÓDIGO SECRETO</h1><p>O xogo de palabras, pistas e espías</p>'+
+  '<button class="b r big" id="go">COMEZAR PARTIDA</button>'+
+  '<div class="j"><input id="cod" placeholder="CÓDIGO" maxlength="5" autocapitalize="characters" autocorrect="off"><button class="b g" id="ver">VER CLAVE (XEFE DE ESPÍAS)</button></div></div>';
+  $('go').onclick=function(){snd('ok');build(newSeed());save();keyScreen(true)};
+  $('ver').onclick=function(){var c=$('cod').value.trim().toUpperCase();if(c.length<3)return;build(c);keyScreen(false)};
+}
+function keyScreen(canPlay){
+  var h='<div class="top"><button class="b g" id="nv">↻ NOVA CLAVE</button><div class="ind" style="color:'+T[G.start].c+'">● COMEZAN '+T[G.start].n+'</div>'+
+  (canPlay?'<button class="b a" id="pl">AMOSAR PALABRAS</button>':'<button class="b g" id="hm">INICIO</button>')+'</div>'+
+  '<div class="code" style="text-align:center;margin-bottom:6px">Código da partida: <b>'+G.seed+'</b> — o xefe de espías pode abrir o mesmo xogo noutro dispositivo con este código</div><div class="grid">';
+  G.words.forEach(function(w,i){var t=G.key[i];h+='<div class="k c'+t+'">'+(SYM[t]?'<b>'+SYM[t]+'</b>':'')+w+'</div>'});
+  app.innerHTML=h+'</div>';
+  $('nv').onclick=function(){build(newSeed());if(canPlay)save();keyScreen(canPlay)};
+  if(canPlay)$('pl').onclick=board;else $('hm').onclick=home;
+}
+function turnTxt(){return '<span style="color:'+T[G.turn].c+'">TURNO: '+T[G.turn].n+'</span>'}
+function board(){
+  var h='<div class="top"><button class="b g" id="ck">CLAVE</button><div class="tur" id="tu">'+turnTxt()+'</div><button class="b g" id="pt">PASAR TURNO</button></div><div class="grid" id="gr">';
+  G.words.forEach(function(w,i){var f=G.found.indexOf(i)>=0;
+    h+='<button class="w'+(w.length>9?' l':'')+(f?' c'+G.key[i]:'')+'" data-i="'+i+'"'+(f?' disabled':'')+'><span>'+w+'</span><i></i><span class="f">'+w+'</span></button>'});
+  app.innerHTML=h+'</div>';
+  $('gr').onclick=function(e){var b=e.target;while(b&&b!==this&&!b.getAttribute('data-i'))b=b.parentNode;if(b&&b!==this)tap(+b.getAttribute('data-i'),b)};
+  $('pt').onclick=function(){if(!G.over)turn()};
+  $('ck').onclick=function(){if(confirm('Só para o xefe de espías. Amosar a clave?'))keyScreen(true)};
+  if(G.over)return;
+}
+function turn(){G.turn=1-G.turn;$('tu').innerHTML=turnTxt();save()}
+function modal(t,m,cls){var d=document.createElement('div');d.className='ov';
+  d.innerHTML='<div><h2>'+t+'</h2><p>'+m+'</p><button class="b '+cls+'">NOVA PARTIDA</button></div>';
+  d.getElementsByTagName('button')[0].onclick=function(){build(newSeed());save();keyScreen(true)};document.body.appendChild(d)}
+function tap(i,b){
+  if(G.over||G.found.indexOf(i)>=0)return;
+  var t=G.key[i];G.found.push(i);b.disabled=true;b.className+=' c'+t;
+  if(t===3){G.over=true;save();snd('bomb');setTimeout(function(){modal('💣 BOMBA!','Perden '+T[G.turn].n+'. Gañan '+T[1-G.turn].n,'g')},500);return}
+  var left=[0,0];G.key.forEach(function(k,j){if(k<2&&G.found.indexOf(j)<0)left[k]++});
+  if(!left[0]||!left[1]){var w=left[0]?1:0;G.over=true;save();snd('win');setTimeout(function(){modal('VITORIA!','GAÑAN '+T[w].n,'r')},200);return}
+  if(t===G.turn)snd('ok');else{snd('no');turn();return}
+  save();
+}
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
+var hs=location.hash.replace('#','').toUpperCase();
+if(hs.length>=3){build(hs);keyScreen(false)}else if(load())board();else home();
+</script></body></html>
