@@ -21,19 +21,19 @@ h1{font-size:48px;margin:0 0 10px}p{color:#aaa;font-size:21px;margin:0 0 30px}
 .top{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:space-between;justify-content:space-between;height:44px;margin-bottom:6px}
 .top .b{height:36px;font-size:15px}
 .tur{font-size:20px;font-weight:700;background:#08080a;border-radius:10px;padding:6px 18px}
-.grid{-webkit-flex:1;flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);grid-gap:7px;min-height:0}
+.grid{-webkit-flex:1;flex:1;display:grid;grid-template-columns:repeat(5,1fr);grid-template-rows:repeat(4,1fr);grid-gap:7px;min-height:0;-webkit-justify-content:center;justify-content:center;-webkit-align-content:center;align-content:center}
 .w,.k{position:relative;border-radius:9px;border:1px solid #8c8c8c;background-color:#e0d1ad;background-size:cover;background-position:center;background-repeat:no-repeat;overflow:hidden;min-height:0}
 .k{display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;font-size:4vw;font-weight:700;text-shadow:0 0 6px rgba(0,0,0,.6)}
 .o{position:absolute;left:0;top:0;right:0;bottom:0;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;font-size:5vw;font-weight:700}
 .o0{background:rgba(224,15,15,.78)}.o1{background:rgba(15,64,217,.78)}.o2{background:rgba(110,71,36,.78)}.o3{background:rgba(0,0,0,.88)}
-.ind{font-weight:700;font-size:21px}
+.ind{font-weight:700;font-size:21px}.mis{position:absolute;left:0;right:0;top:50%;margin-top:-10px;text-align:center;color:#7a1010;font-weight:700;font-size:15px}
 .code{font-size:15px;color:#aaa;text-align:center;margin-bottom:6px}.code b{color:#fff;letter-spacing:2px;font-size:20px}
 .ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.75);display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;z-index:9}
 .ov div{background:#1b1b20;border-radius:16px;padding:28px 40px;text-align:center}.ov h2{margin:0 0 8px;font-size:34px}.ov p{margin:0 0 22px;color:#ddd;font-size:22px}
 @media (orientation:portrait){h1{font-size:40px}.k{font-size:6vw}.o{font-size:8vw}}
 </style></head><body><div id="app"></div>
 <script>
-var NIMG=312,NB=20;
+var NIMG=312,NB=20,IV='2';
 var STR={
 gl:{t:'CÓDIGO SECRETO',s:'O xogo de imaxes, pistas e espías',go:'COMEZAR PARTIDA',cod:'CÓDIGO',ver:'VER CLAVE (XEFE DE ESPÍAS)',nk:'↻ NOVA CLAVE',sh:'AMOSAR IMAXES',hm:'INICIO',st:'COMEZAN ',av:'Fai unha foto desta clave. Código da partida: ',tn:'TURNO: ',pt:'PASAR TURNO',ck:'CLAVE',cf:'Só para o xefe de espías. Amosar a clave?',cq:'Saír á pantalla de inicio? Perderase a partida actual.',bm:'💣 BOMBA!',lo:'Perden ',wi:'GAÑAN ',vi:'VITORIA!',ng:'NOVA PARTIDA',vb:'VER TABOLEIRO',tm:['VERMELLOS','AZUIS']},
 es:{t:'CÓDIGO SECRETO',s:'El juego de imágenes, pistas y espías',go:'COMENZAR PARTIDA',cod:'CÓDIGO',ver:'VER CLAVE (JEFE DE ESPÍAS)',nk:'↻ NUEVA CLAVE',sh:'MOSTRAR IMÁGENES',hm:'INICIO',st:'EMPIEZAN ',av:'Haz una foto de esta clave. Código de la partida: ',tn:'TURNO: ',pt:'PASAR TURNO',ck:'CLAVE',cf:'Solo para el jefe de espías. ¿Mostrar la clave?',cq:'¿Salir a la pantalla de inicio? Se perderá la partida actual.',bm:'💣 ¡BOMBA!',lo:'Pierden ',wi:'GANAN ',vi:'¡VICTORIA!',ng:'NUEVA PARTIDA',vb:'VER TABLERO',tm:['ROJOS','AZULES']}};
@@ -43,6 +43,8 @@ try{if(localStorage.getItem('csl')==='es')LANG='es'}catch(e){}
 function S(k){return STR[LANG][k]}
 function $(i){return document.getElementById(i)}
 function pad(n){return ('00'+n).slice(-3)}
+function fit(){var g=document.querySelector('.grid');if(!g)return;var W=g.clientWidth,H=g.clientHeight,s=Math.floor(Math.min((W-28)/5,(H-21)/4));if(s<30)return;g.style.gridTemplateColumns='repeat(5,'+s+'px)';g.style.gridTemplateRows='repeat(4,'+s+'px)'}
+window.addEventListener('resize',function(){setTimeout(fit,120)});window.addEventListener('orientationchange',function(){setTimeout(fit,300)});
 function clearOv(){var o=document.querySelectorAll('.ov');for(var i=0;i<o.length;i++)o[i].parentNode.removeChild(o[i])}
 function hash(s){var h=1779033703^s.length;for(var i=0;i<s.length;i++){h=Math.imul(h^s.charCodeAt(i),3432918353);h=h<<13|h>>>19}return h>>>0}
 function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;var t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -54,7 +56,7 @@ function build(seed){
   var st=r()<.5?0:1,k=[];
   for(i=0;i<8;i++)k.push(st);for(i=0;i<7;i++)k.push(1-st);for(i=0;i<4;i++)k.push(2);k.push(3);
   G={seed:seed,imgs:shuf(ids,r).slice(0,NB),key:shuf(k,r),start:st,turn:st,found:[],over:false,res:null};
-  G.imgs.forEach(function(n){(new Image()).src='img/'+pad(n)+'.jpg'});
+  G.imgs.forEach(function(n){(new Image()).src='img/'+pad(n)+'.jpg?v='+IV});
 }
 function save(){try{localStorage.setItem('csi',JSON.stringify({s:G.seed,f:G.found,t:G.turn,o:G.over,r:G.res}))}catch(e){}}
 function load(){try{var d=JSON.parse(localStorage.getItem('csi'));if(d&&d.s){build(d.s);G.found=d.f||[];G.turn=d.t;G.over=!!d.o;G.res=d.r||null;return true}}catch(e){}return false}
@@ -79,7 +81,7 @@ function keyScreen(canPlay){
   (canPlay?'<button class="b a" id="pl">'+S('sh')+'</button>':'<button class="b g" id="hm">'+S('hm')+'</button>')+'</div>'+
   '<div class="code">'+S('av')+'<b>'+G.seed+'</b></div><div class="grid">';
   G.key.forEach(function(t){h+='<div class="k" style="background-color:'+COL[t]+';'+(TOK[t]?'background-image:url('+TOK[t]+')':'')+'">'+SYM[t]+'</div>'});
-  app.innerHTML=h+'</div>';
+  app.innerHTML=h+'</div>';fit();
   $('nv').onclick=function(){build(newSeed());if(canPlay)save();keyScreen(canPlay)};
   if(canPlay)$('pl').onclick=board;else $('hm').onclick=home;
 }
@@ -88,9 +90,10 @@ function cover(el,t){var o=document.createElement('div');o.className='o o'+t;o.i
 function board(){
   clearOv();
   var h='<div class="top"><div><button class="b g" id="hm">'+S('hm')+'</button><button class="b g" id="ck">'+S('ck')+'</button></div><div class="tur" id="tu">'+turnTxt()+'</div><button class="b g" id="pt">'+S('pt')+'</button></div><div class="grid" id="gr">';
-  G.imgs.forEach(function(n,i){h+='<div class="w" data-i="'+i+'" style="background-image:url(img/'+pad(n)+'.jpg)"></div>'});
+  G.imgs.forEach(function(n,i){h+='<div class="w" data-i="'+i+'" style="background-image:url(img/'+pad(n)+'.jpg?v='+IV+')"></div>'});
   app.innerHTML=h+'</div>';
-  var cells=$('gr').children;G.found.forEach(function(i){cover(cells[i],G.key[i])});
+  fit();var cells=$('gr').children;G.found.forEach(function(i){cover(cells[i],G.key[i])});
+  G.imgs.forEach(function(n,i){var im=new Image();im.onerror=function(){var m=document.createElement('div');m.className='mis';m.innerHTML='FALTA '+pad(n);cells[i].appendChild(m)};im.src='img/'+pad(n)+'.jpg?v='+IV});
   $('gr').onclick=function(e){var b=e.target;while(b&&b!==this&&!b.getAttribute('data-i'))b=b.parentNode;if(b&&b!==this)tap(+b.getAttribute('data-i'),b)};
   $('pt').onclick=function(){if(!G.over)turn()};
   $('hm').onclick=function(){if(G.over||confirm(S('cq')))home()};
