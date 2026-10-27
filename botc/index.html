@@ -8,111 +8,137 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}
 html,body{margin:0;height:100%;background:#090610;color:#e8dcb8;font-family:Georgia,'Times New Roman',serif;overflow:hidden}
 #app{height:100%;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
-h1{color:#f2cc80;text-align:center;margin:6px 0 2px;font-size:34px;letter-spacing:2px}h2{color:#f2cc80;margin:0 0 6px;font-size:26px;text-align:center}
-.sub{text-align:center;color:#c79c4d;font-size:16px;margin-bottom:10px}
+h1{color:#f2cc80;text-align:center;margin:4px 0 0;font-size:30px;letter-spacing:2px}h2{color:#f2cc80;margin:8px 0 4px;font-size:22px}
+.sub{text-align:center;color:#c79c4d;font-size:15px;margin-bottom:8px}
 .sc{-webkit-flex:1;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0}
 .mid{margin:auto;text-align:center;max-width:560px;width:100%;padding:10px}
-.b{display:block;width:100%;border:1px solid #c79c4d;background:#1b1410;color:#f2cc80;font:700 19px Georgia,serif;padding:14px;margin:8px 0;border-radius:12px}
-.b.r{background:#a61414;color:#fff;border-color:#f20d0d}.b.s{width:auto;display:inline-block;padding:9px 14px;font-size:15px;margin:4px}.b.on{background:#c79c4d;color:#090610}
+.b{display:block;width:100%;border:1px solid #c79c4d;background:#1b1410;color:#f2cc80;font:700 18px Georgia,serif;padding:13px;margin:8px 0;border-radius:12px}
+.b.r{background:#a61414;color:#fff;border-color:#f20d0d}.b.s{width:auto;display:inline-block;padding:9px 14px;font-size:15px;margin:4px}.b.on{background:#c79c4d;color:#090610}.b[disabled]{opacity:.35}
 .bar{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:center;justify-content:center}
-.card{border:1px solid #6b5530;border-radius:12px;padding:12px 14px;margin:8px 0;background:#150f12}.card.d{opacity:.45}.card.ok{opacity:.4;text-decoration:line-through}
-.card b{color:#f2cc80}.card small{color:#c79c4d;display:block;margin-bottom:3px}
+.card{display:-webkit-flex;display:flex;border:1px solid #6b5530;border-radius:12px;padding:10px 12px;margin:7px 0;background:#150f12;text-align:left}.card.d{opacity:.45}.card.ok{opacity:.35}.card.ok b{text-decoration:line-through}
+.card>div{-webkit-flex:1;flex:1}.card small{color:#c79c4d;display:block}.card b{color:#f2cc80}.card img.ni{width:52px;height:52px;margin-right:12px;-webkit-flex:none;flex:none}
+.dot{color:#b04bd6;font-size:20px}.hl{border-color:#f20d0d;background:#2a0e10}
 input,textarea,select{width:100%;font:18px Georgia,serif;padding:10px;border-radius:8px;border:1px solid #c79c4d;background:#f1e7c8;color:#111;-webkit-user-select:text;user-select:text;margin:4px 0}
 .ring{position:relative;-webkit-flex:1;flex:1;min-height:0}
-.pl{position:absolute;width:104px;height:64px;margin:-32px 0 0 -52px;border-radius:12px;border:2px solid #c79c4d;color:#fff;font-size:14px;font-weight:700;text-align:center;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-justify-content:center;justify-content:center;padding:2px;line-height:1.15;overflow:hidden}
-.pl i{font-style:normal;font-weight:400;font-size:11px;opacity:.9}.pl.x{opacity:.45;border-style:dashed}
-.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;padding:16px}
-.ov>div{background:#150f12;border:1px solid #c79c4d;border-radius:16px;padding:20px;max-width:620px;width:100%;max-height:100%;overflow-y:auto;text-align:center}
-.big{font-size:52px;font-weight:700;color:#fff;line-height:1.1}.full{position:fixed;left:0;top:0;right:0;bottom:0;z-index:9;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;text-align:center;padding:20px}
+.ctr{position:absolute;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);text-align:center;color:#c79c4d;font-size:15px}.ctr b{color:#f2cc80;font-size:24px;display:block}
+.pl{position:absolute;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%);text-align:center;width:calc(var(--t) + 34px);line-height:1.1}
+.ci{position:relative;width:var(--t);height:var(--t);border-radius:50%;border:3px solid #c79c4d;background:#0d0a0c;margin:0 auto 2px}.ci img{width:100%;height:100%;border-radius:50%;padding:4px}
+.pl b{display:block;font-size:13px;color:#fff;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.pl i{display:block;font-style:normal;font-size:11px;color:#c79c4d;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.pl.x{opacity:.6}.pl.x .ci img{-webkit-filter:grayscale(1);filter:grayscale(1)}.ci s{position:absolute;left:0;right:0;top:20%;text-decoration:none;font-size:calc(var(--t) * .45);color:#fff;text-shadow:0 0 6px #000}
+.bd{position:absolute;right:-8px;top:-6px;font-size:14px;white-space:nowrap}.gv{position:absolute;left:-8px;bottom:-4px;font-size:15px}
+.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.88);z-index:9;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;padding:14px}
+.ov>div{background:#150f12;border:1px solid #c79c4d;border-radius:16px;padding:18px;max-width:620px;width:100%;max-height:100%;overflow-y:auto;text-align:center}
+.big{font-size:46px;font-weight:700;color:#fff;line-height:1.1}.full{position:fixed;left:0;top:0;right:0;bottom:0;z-index:9;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;text-align:center;padding:20px}
 canvas{background:#fafafa;border-radius:10px;-webkit-flex:1;flex:1;width:100%;touch-action:none}
-.g{display:grid;grid-template-columns:repeat(4,1fr);grid-gap:8px}.g .b{margin:0}
+.g{display:grid;grid-template-columns:repeat(4,1fr);grid-gap:8px}.g .b{margin:0}.ch{display:inline-block;margin:3px;padding:7px 10px;border:1px solid #6b5530;border-radius:20px;font-size:15px}.ch.on{background:#c79c4d;color:#090610}
+.ic{width:90px;height:90px}
 </style></head><body><div id="app"></div>
 <script src="data.js"></script>
 <script>
-var TC={ALDEANO:'#1a408c',FORASTERO:'#1f7ac7',ESBIRRO:'#a61414',DEMONIO:'#f20d0d'},TL={ALDEANO:'ALDEANO',FORASTERO:'FORASTERO',ESBIRRO:'ESBIRRO',DEMONIO:'DEMONIO'};
-var CNT={5:[3,0,1],6:[3,1,1],7:[5,0,1],8:[5,1,1],9:[5,2,1],10:[7,0,2],11:[7,1,2],12:[7,2,2],13:[9,0,3],14:[9,1,3],15:[9,2,3]};
+var TC={ALDEANO:'#2a6fd6',FORASTERO:'#4fb0e8',ESBIRRO:'#c01818',DEMONIO:'#ff2a2a'};
+var TAGS=[['ENVENENADO','☠'],['BORRACHO','🍺'],['A SALVO','🛡'],['NIETO','👵'],['FALSO POSITIVO','🔮'],['LOCO','🌀'],['VA A MORIR','🩸'],['SIN HABILIDAD','⛔']];
+var CNT={5:[3,0,1],6:[3,1,1],7:[5,0,1],8:[5,1,1],9:[5,2,1],10:[7,0,2],11:[7,1,2],12:[7,2,2],13:[9,0,3],14:[9,1,3],15:[9,2,3]},MOD={'BARÓN':2,'FANG GU':1,'VIGORMORTIS':-1};
 var S=null,V={s:'menu'},app=document.getElementById('app'),cv=null;
-try{S=JSON.parse(localStorage.getItem('botc'))}catch(e){}
-S=S||{script:'EL COMIENZO',names:[],roles:[],vis:[],dead:[],ghost:[],notes:[],bluffs:[],votes:[],done:{},nieto:''};
-function save(){try{localStorage.setItem('botc',JSON.stringify(S))}catch(e){}}
+try{S=JSON.parse(localStorage.getItem('botc2'))}catch(e){}
+S=S||{script:'EL COMIENZO',names:[],roles:[],vis:[],dead:[],ghost:[],notes:[],tags:[],bluffs:[],day:1,noms:[],done:{}};
+function save(){try{localStorage.setItem('botc2',JSON.stringify(S))}catch(e){}}
 function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
-function T(n){return D[n][0]}function col(n){return TC[T(n)]||'#c79c4d'}function P(){return SC[S.script]}
-function active(){return S.roles.length>0&&S.roles.length===S.names.length}
+function P(){return SC[S.script]}function active(){return S.roles.length>0&&S.roles.length===S.names.length}
 function alive(){var k=0;S.dead.forEach(function(d){if(!d)k++});return k}
+function col(r){return TC[R[r].t]}function img(r,c){return '<img class="'+(c||'')+'" src="'+R[r].i+'">'}
 function btn(a,t,c,i){return '<button class="b '+(c||'')+'" data-a="'+a+'"'+(i!==undefined?' data-i="'+i+'"':'')+'>'+t+'</button>'}
 function top(t,s){return '<h1>'+t+'</h1><div class="sub">'+(s||'')+'</div>'}
-function show(h){app.innerHTML=h}
-function render(){var f=R[V.s];f&&f();window.scrollTo(0,0)}
+function show(h){app.innerHTML=h}function render(){var f=Rn[V.s];f&&f()}
 function go(s,x){V={s:s};for(var k in x)V[k]=x[k];render()}
-var R={
-menu:function(){var h='<div class="sc"><div class="mid"><img src="icon-180.png" width="110" height="110" style="border-radius:22px"><h1>GRIMORIO</h1><div class="sub">BLOOD ON THE CLOCKTOWER</div><div class="bar">';
+function dots(n){var s='';for(var i=0;i<n;i++)s+=' <span class="dot">●</span>';return s}
+function fit(){var r=document.querySelector('.ring');if(!r)return;var t=Math.max(40,Math.min(78,Math.min(r.clientWidth,r.clientHeight)/(S.names.length<=8?5.4:S.names.length<=11?6.4:7.4)));r.style.setProperty('--t',t+'px')}
+window.addEventListener('resize',function(){setTimeout(fit,120)});window.addEventListener('orientationchange',function(){setTimeout(fit,300)});
+var Rn={
+menu:function(){var h='<div class="sc"><div class="mid"><img src="icon-180.png" width="100" height="100" style="border-radius:22px"><h1>GRIMORIO</h1><div class="sub">BLOOD ON THE CLOCKTOWER</div><div class="bar">';
   Object.keys(SC).forEach(function(k){h+=btn('scr',k,'s'+(S.script===k?' on':''),k)});h+='</div>';
   if(active())h+=btn('grim','CONTINUAR PARTIDA ('+S.script+')','r');
-  h+=btn('count','REPARTO DE PERSONAJES')+btn('chars','PERSONAJES')+'</div></div>';show(h)},
+  show(h+btn('count','REPARTO DE PERSONAJES')+btn('chars','PERSONAJES DEL GUION')+'</div></div>')},
 count:function(){var h='<div class="sc"><div class="mid">'+top('¿CUÁNTOS JUGADORES?',S.script)+'<div class="g">';for(var n=5;n<=15;n++)h+=btn('names',n,'',n);show(h+'</div>'+btn('menu','VOLVER','s')+'</div></div>')},
-names:function(){var h='<div class="sc"><div class="mid">'+top('NOMBRES DE LOS JUGADORES',V.n+' jugadores · '+S.script);
-  for(var i=0;i<V.n;i++)h+='<input class="nm" placeholder="Jugador '+(i+1)+'" value="'+E(S.names[i]&&S.names.length===V.n?S.names[i]:'')+'" maxlength="18">';
+names:function(){var h='<div class="sc"><div class="mid">'+top('NOMBRES DE LOS JUGADORES',V.n+' jugadores · en el orden en que están sentados · '+S.script);
+  for(var i=0;i<V.n;i++)h+='<input class="nm" placeholder="Jugador '+(i+1)+'" value="'+E(S.names.length===V.n&&S.names[i]||'')+'" maxlength="16">';
   show(h+btn('deal','REPARTIR PERSONAJES','r')+btn('count','VOLVER','s')+'</div></div>')},
 pass:function(){var nm=S.names[V.i];show('<div class="mid">'+top('REPARTO SECRETO','JUGADOR '+(V.i+1)+' DE '+S.names.length)+'<div class="big">'+E(nm)+'</div><p style="font-size:20px">Pasa la tablet a <b>'+E(nm)+'</b>.<br>Cuando nadie más pueda ver la pantalla, descubre tu personaje.</p>'+btn('reveal','DESCUBRIR MI PERSONAJE','r')+'</div>')},
-reveal:function(){var n=S.vis[V.i],bo=S.roles[V.i]==='BORRACHO';show('<div class="mid">'+top('ESTE PERSONAJE ES SECRETO','')+'<div class="card" style="border-color:'+col(n)+';border-width:3px"><small>'+T(n)+'</small><div class="big" style="font-size:40px">'+n+'</div><p style="font-size:19px">'+E(D[n][1])+'</p></div>'+btn('hide','OCULTAR PERSONAJE','r')+'</div>')},
+reveal:function(){var r=S.vis[V.i];show('<div class="mid">'+top('ESTE PERSONAJE ES SECRETO','')+'<div class="card" style="display:block;text-align:center;border:3px solid '+col(r)+'">'+img(r,'ic')+'<div class="sub" style="margin:6px">'+R[r].t+'</div><div class="big" style="font-size:36px">'+R[r].n+'</div><p style="font-size:19px">'+E(R[r].d)+'</p></div>'+btn('hide','OCULTAR PERSONAJE','r')+'</div>')},
 done:function(){show('<div class="mid">'+top('REPARTO COMPLETADO','')+'<p style="font-size:20px">Todos los personajes han sido repartidos.<br>El Grimorio está listo.</p>'+btn('grim','ABRIR GRIMORIO','r')+'</div>')},
-grim:function(){var n=S.names.length,h=top('GRIMORIO',S.script+' · '+alive()+' vivos de '+n)+'<div class="ring">';
-  S.names.forEach(function(nm,i){var a=-Math.PI/2+i*2*Math.PI/n,r=S.roles[i];
-    h+='<div class="pl'+(S.dead[i]?' x':'')+'" data-a="pl" data-i="'+i+'" style="left:'+(50+40*Math.cos(a))+'%;top:'+(50+38*Math.sin(a))+'%;background:'+col(r)+'">'+(S.dead[i]?'✝ ':'')+E(nm)+'<i>'+(r==='BORRACHO'?'BORRACHO':r)+(S.dead[i]&&S.ghost[i]?' · 🗳':'')+'</i></div>'});
-  show(h+'</div><div class="bar">'+btn('n1','PRIMERA NOCHE','s')+btn('n2','NOCHES SIGUIENTES','s')+btn('sigs','FICHAS NARRADOR','s')+btn('votes','VOTACIONES','s')+btn('menu','⌂ INICIO','s')+'</div>')},
-night:function(){var o=P()['n'+V.n],I=V.n===1?I1:I2,h=top(V.n===1?'PRIMERA NOCHE':'NOCHES SIGUIENTES','ORDEN DE INTERVENCIONES DEL NARRADOR')+'<div class="sc">',k=0;
-  function card(id,t,w,x,d){k++;h+='<div class="card'+(d?' d':'')+(S.done['n'+V.n+id]?' ok':'')+'" data-a="ck" data-i="'+id+'"><small>'+k+'.</small><b>'+t+'</b>'+(w?' — '+E(w):'')+'<div>'+E(x).replace(/\n/g,'<br>')+'</div></div>'}
-  if(V.n===1&&S.names.length>=7){var es=S.roles.filter(function(r){return T(r)==='ESBIRRO'}).join(', ');
-    card('E','ESBIRROS','','Despierta a todos los Esbirros. Muestra la ficha ESTE ES EL DEMONIO. Apunta al Demonio.');
-    card('Z','DEMONIO','','Despierta al Demonio. Muestra ESTOS SON TUS ESBIRROS y apunta a todos ('+es+'). Muestra ESTOS PERSONAJES NO ESTÁN EN JUEGO con 3 fichas de personajes buenos:\n'+S.bluffs.join(' · '))}
-  o.forEach(function(r){var w=[],d=true;S.roles.forEach(function(x,i){if(x===r){w.push(S.names[i]+(S.dead[i]?' ✝':''));if(!S.dead[i])d=false}});if(w.length)card(r,r,w.join(' y '),I[r]||(V.n===1?'No tiene acción durante la primera noche.':'Sin acción nocturna.'),d&&V.n===2)});
+grim:function(){var n=S.names.length,h=top('GRIMORIO',S.script)+'<div class="ring"><div class="ctr"><b>DÍA '+S.day+'</b>'+alive()+' vivos de '+n+'</div>';
+  S.names.forEach(function(nm,i){var a=-Math.PI/2+i*2*Math.PI/n,r=S.roles[i],bd='';(S.tags[i]||[]).forEach(function(t){TAGS.forEach(function(x){if(x[0]===t)bd+=x[1]})});
+    h+='<div class="pl'+(S.dead[i]?' x':'')+'" data-a="pl" data-i="'+i+'" style="left:'+(50+41*Math.cos(a))+'%;top:'+(50+39*Math.sin(a))+'%"><div class="ci" style="border-color:'+col(r)+'">'+img(r)+(S.dead[i]?'<s>✝</s>':'')+(bd?'<span class="bd">'+bd+'</span>':'')+(S.dead[i]&&S.ghost[i]?'<span class="gv">🗳</span>':'')+'</div><b>'+E(nm)+'</b><i>'+R[r].n+'</i></div>'});
+  show(h+'</div><div class="bar">'+btn('n1','1ª NOCHE','s')+btn('n2','NOCHES','s')+btn('sigs','FICHAS','s')+btn('votes','NOMINACIONES','s')+btn('menu','⌂ INICIO','s')+'</div>');fit()},
+night:function(){var o=P()['n'+V.n],h=top(V.n===1?'PRIMERA NOCHE':'NOCHES SIGUIENTES','ORDEN DE INTERVENCIONES')+'<div class="sc">',k=0,es=[],de='';
+  S.roles.forEach(function(r,i){if(R[r].t==='ESBIRRO')es.push(S.names[i]);if(R[r].t==='DEMONIO')de=S.names[i]});
+  o.forEach(function(x){var key=x[0],sp=SP[key]!==undefined,w=[],d=false,ic=sp?SP[key]:(R[key]&&R[key].i),nm=sp?key:(R[key]?R[key].n:key),extra='';
+    if(sp){d=(key==='ESBIRROS'||key==='DEMONIOS')&&S.names.length<7;if(key==='ESBIRROS')extra='<br>Esbirros: <b>'+E(es.join(', '))+'</b> · Demonio: <b>'+E(de)+'</b>';
+      if(key==='DEMONIOS')extra='<br>Coartadas: '+S.bluffs.map(function(b){return '<img src="'+R[b].i+'" width="34" height="34" style="vertical-align:middle"> <b>'+R[b].n+'</b>'}).join(' · ')+' '+btn('nb','OTRAS','s')}
+    else{var any=false;S.roles.forEach(function(r,i){if(S.vis[i]===key){var t=S.names[i]+(S.roles[i]==='BORRACHO'?' 🍺 (BORRACHO: info falsa)':'')+(S.dead[i]?' ✝':'');w.push(t);if(!S.dead[i])any=true}});if(!w.length)return;d=!any&&V.n===2}
+    k++;var id=(V.n)+key;h+='<div class="card'+(d?' d':'')+(S.done[id]?' ok':'')+'" data-a="ck" data-i="'+id+'">'+(ic?'<img class="ni" src="'+ic+'">':'')+'<div><small>'+k+'.</small><b>'+nm+'</b>'+(w.length?' — '+E(w.join(' y ')):'')+'<div>'+E(x[1])+dots(x[2])+extra+'</div></div></div>'});
   show(h+'</div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+btn(V.n===1?'n2':'n1',V.n===1?'NOCHES SIGUIENTES':'PRIMERA NOCHE','s')+'</div>')},
-sigs:function(){var h=top('FICHAS DEL NARRADOR','RESPUESTAS Y SEÑALES RÁPIDAS')+'<div class="sc"><div class="mid">'+btn('sg','ES EL DEMONIO','r','dem')+btn('sg','ES TU ESBIRRO','r','min')+btn('sg','SEÑALA A ALGUIEN','','pt')+btn('sg','TUS COARTADAS','','bl')+btn('sg','ES TU NIETO Y SU PERSONAJE ES...','','ni')+btn('board','PIZARRA')+'</div></div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+'</div>';show(h)},
-votes:function(){var h=top('VOTACIONES','HISTORIAL DE NOMINACIONES Y VOTOS')+'<div class="sc">';
-  if(!S.votes.length)h+='<p style="text-align:center">Todavía no hay nominaciones registradas.</p>';
-  S.votes.forEach(function(v,i){h+='<div class="card"><small>DÍA '+v.d+' · NOMINACIÓN '+(i+1)+'</small><b>'+E(S.names[v.n])+' — '+v.v.length+(v.v.length===1?' VOTO':' VOTOS')+'</b> (mayoría: '+Math.ceil(v.a/2)+')<div>'+(v.v.length?E(v.v.join(', ')):'Nadie votó')+'</div></div>'});
-  show(h+'</div><div class="bar">'+btn('nom','NUEVA NOMINACIÓN','r')+btn('grim','VOLVER AL GRIMORIO','s')+'</div>')},
-nominee:function(){var h=top('NOMINAR A','DÍA '+V.d+' · elige un jugador vivo')+'<div class="sc">';S.names.forEach(function(n,i){if(!S.dead[i])h+=btn('nm',E(n),'',i)});show(h+'</div><div class="bar">'+btn('votes','CANCELAR','s')+'</div>')},
-vote:function(){var h=top('VOTACIÓN · DÍA '+V.d,'NOMINADO: '+E(S.names[V.nom]))+'<div class="sc">';S.names.forEach(function(n,i){if(!S.dead[i]||S.ghost[i])h+=btn('tg',(V.vt[i]?'☑ ':'☐ ')+E(n)+(S.dead[i]?' (voto fantasma)':''),V.vt[i]?'on':'',i)});show(h+'</div><div class="bar">'+btn('reg','REGISTRAR NOMINACIÓN','r')+btn('votes','CANCELAR','s')+'</div>')},
-chars:function(){var p=P(),h=top('PERSONAJES',S.script)+'<div class="sc">';[['a','ALDEANOS'],['f','FORASTEROS'],['e','ESBIRROS'],['d','DEMONIOS']].forEach(function(g){h+='<h2 style="text-align:left;font-size:20px;color:'+TC[T(p[g[0]][0])]+'">'+g[1]+'</h2>';p[g[0]].forEach(function(n){h+='<div class="card" style="border-color:'+col(n)+'"><b>'+n+'</b><div>'+E(D[n][1])+'</div></div>'})});show(h+'</div><div class="bar">'+btn('menu','VOLVER','s')+'</div>')},
+sigs:function(){show(top('FICHAS DEL NARRADOR','SEÑALES RÁPIDAS')+'<div class="sc"><div class="mid">'+btn('sg','ES EL DEMONIO','r','dem')+btn('sg','ES TU ESBIRRO','r','min')+btn('sg','SEÑALA A ALGUIEN','','pt')+btn('sg','TUS COARTADAS','','bl')+btn('sg','TÚ ERES…','','ti')+btn('sg','ES TU NIETO Y SU PERSONAJE ES…','','ni')+btn('sg','ESTE PERSONAJE TE HA ELEGIDO','','el')+btn('sg','👍 / 👎','','pg')+btn('board','PIZARRA')+'</div></div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+'</div>')},
+votes:function(){var h=top('NOMINACIONES','DÍA '+S.day+' · '+alive()+' vivos · mayoría: '+Math.ceil(alive()/2))+'<div class="sc">',b=block();
+  if(b.t)h+='<div class="card hl"><div>'+(b.tie?'<b>EMPATE</b> entre los más votados: nadie sería ejecutado.':'<b>EN EL PATÍBULO:</b> '+E(S.names[b.i])+' con '+b.v+' votos'+btn('exe','EJECUTAR A '+E(S.names[b.i]).toUpperCase(),'r',b.i))+'</div></div>';
+  var any=false;for(var d=S.day;d>=1;d--){var l=S.noms.filter(function(n){return n.d===d});if(!l.length)continue;any=true;h+='<h2>DÍA '+d+'</h2>';
+    l.forEach(function(n){var ix=S.noms.indexOf(n);h+='<div class="card"><div><small>NOMINACIÓN '+(l.indexOf(n)+1)+(n.ex?' · EJECUTADO':'')+'</small><b>'+E(S.names[n.a])+'</b> nomina a <b>'+E(S.names[n.b])+'</b><br>'+n.v.length+(n.v.length===1?' voto':' votos')+' (mayoría '+n.m+'): '+(n.v.length?E(n.v.map(function(i){return S.names[i]}).join(', ')):'nadie')+'</div>'+btn('del','✕','s',ix)+'</div>'})}
+  if(!any)h+='<p style="text-align:center">Todavía no hay nominaciones.</p>';
+  show(h+'</div><div class="bar">'+btn('nom','NUEVA NOMINACIÓN','r')+btn('day','☀ NUEVO DÍA','s')+btn('grim','VOLVER','s')+'</div>')},
+nom1:function(){var h=top('¿QUIÉN NOMINA?','DÍA '+S.day+' · jugadores vivos que aún no han nominado hoy')+'<div class="sc">';S.names.forEach(function(n,i){if(!S.dead[i]){var u=S.noms.some(function(x){return x.d===S.day&&x.a===i});h+='<button class="b" data-a="n2" data-i="'+i+'"'+(u?' disabled':'')+'>'+E(n)+(u?' (ya nominó)':'')+'</button>'}});show(h+'</div><div class="bar">'+btn('votes','CANCELAR','s')+'</div>')},
+nom2:function(){var h=top('¿A QUIÉN NOMINA '+E(S.names[V.a]).toUpperCase()+'?','solo se puede nominar una vez a cada jugador por día')+'<div class="sc">';S.names.forEach(function(n,i){if(i!==V.a){var u=S.noms.some(function(x){return x.d===S.day&&x.b===i});h+='<button class="b" data-a="n3" data-i="'+i+'"'+(u?' disabled':'')+'>'+E(n)+(S.dead[i]?' ✝':'')+(u?' (ya nominado)':'')+'</button>'}});show(h+'</div><div class="bar">'+btn('votes','CANCELAR','s')+'</div>')},
+vote:function(){var n=S.names.length,h=top('VOTACIÓN','<b>'+E(S.names[V.a])+'</b> nomina a <b>'+E(S.names[V.b])+'</b> · '+(V.vt.filter(Boolean).length)+' votos · mayoría '+Math.ceil(alive()/2))+'<div class="sc">';
+  for(var k=1;k<=n;k++){var i=(V.b+k)%n;if(!S.dead[i]||S.ghost[i])h+=btn('tg',(V.vt[i]?'☑ ':'☐ ')+E(S.names[i])+(S.dead[i]?' ✝ (voto fantasma)':''),V.vt[i]?'on':'',i)}
+  show(h+'</div><div class="bar">'+btn('reg','REGISTRAR VOTACIÓN','r')+btn('votes','CANCELAR','s')+'</div>')},
+chars:function(){var p=P(),h=top('PERSONAJES',S.script)+'<div class="sc">';[['a','ALDEANOS'],['f','FORASTEROS'],['e','ESBIRROS'],['d','DEMONIOS']].forEach(function(g){h+='<h2 style="color:'+TC[R[p[g[0]][0]].t]+'">'+g[1]+'</h2>';p[g[0]].forEach(function(n){h+='<div class="card" style="border-color:'+col(n)+'">'+img(n,'ni')+'<div><b>'+R[n].n+'</b><div>'+E(R[n].d)+'</div></div></div>'})});show(h+'</div><div class="bar">'+btn('menu','VOLVER','s')+'</div>')},
 board:function(){show(top('PIZARRA','')+'<canvas id="cv"></canvas><div class="bar">'+btn('clr','BORRAR','s')+btn('sigs','VOLVER','s')+'</div>');var c=document.getElementById('cv');c.width=c.clientWidth;c.height=c.clientHeight;var x=c.getContext('2d'),d=false;x.lineWidth=3;x.lineCap='round';x.lineJoin='round';
   function pt(e){var r=c.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return[t.clientX-r.left,t.clientY-r.top]}
   function st(e){e.preventDefault();d=true;var p=pt(e);x.beginPath();x.moveTo(p[0],p[1])}function mv(e){if(!d)return;e.preventDefault();var p=pt(e);x.lineTo(p[0],p[1]);x.stroke()}function en(){d=false}
   c.addEventListener('touchstart',st,{passive:false});c.addEventListener('touchmove',mv,{passive:false});c.addEventListener('touchend',en);c.addEventListener('mousedown',st);c.addEventListener('mousemove',mv);window.addEventListener('mouseup',en);cv=c}
 };
-function ov(h){var d=document.createElement('div');d.className='ov';d.id='ov';d.innerHTML='<div>'+h+'</div>';document.body.appendChild(d)}
+function block(){var m=0,l=[],mj;S.noms.forEach(function(n){if(n.d===S.day&&n.v.length>=n.m&&n.v.length>0){if(n.v.length>m){m=n.v.length;l=[n]}else if(n.v.length===m)l.push(n)}});return l.length?{t:1,tie:l.length>1,i:l[0].b,v:m}:{t:0}}
+function ov(h){closeOv();var d=document.createElement('div');d.className='ov';d.id='ov';d.innerHTML='<div>'+h+'</div>';document.body.appendChild(d)}
 function closeOv(){var o=document.getElementById('ov');if(o)o.parentNode.removeChild(o)}
-function full(c,h){var d=document.createElement('div');d.className='full';d.id='ov';d.style.background=c;d.innerHTML=h+'<button class="b s" data-a="cl" style="margin-top:30px">CERRAR</button>';document.body.appendChild(d)}
-function ficha(i){var r=S.roles[i],v=S.vis[i],t=r==='BORRACHO'?'FORASTERO — BORRACHO<br>CREE SER: ALDEANO — '+v+'<br><br>'+E(D[r][1]):T(r)+'<br><b style="font-size:26px">'+r+'</b><br><br>'+E(D[r][1]);
-  ov('<h2>'+E(S.names[i])+'</h2><div class="card" style="border-color:'+col(r)+'">'+t+'</div>'+btn('dead',(S.dead[i]?'☑':'☐')+' MUERTO','',i)+(S.dead[i]?btn('gh',(S.ghost[i]?'☑':'☐')+' VOTO FANTASMA DISPONIBLE','',i):'')+'<textarea id="nt" rows="3" placeholder="Anotaciones del Narrador">'+E(S.notes[i]||'')+'</textarea>'+btn('sv','GUARDAR Y CERRAR','r',i))}
+function full(c,h){closeOv();var d=document.createElement('div');d.className='full';d.id='ov';d.style.background=c;d.innerHTML=h+'<button class="b s" data-a="cl" style="margin-top:30px">CERRAR</button>';document.body.appendChild(d)}
+function ficha(i){var r=S.roles[i],v=S.vis[i],t=S.tags[i]||[];
+  var inf='<div class="sub" style="color:'+col(r)+'">'+R[r].t+'</div><b style="font-size:24px;color:#f2cc80">'+R[r].n+'</b><p>'+E(R[r].d)+'</p>'+(r==='BORRACHO'?'<div class="card" style="display:block;text-align:center">CREE SER:<br>'+img(v,'ic')+'<br><b>'+R[v].n+'</b></div>':'');
+  var ch='';TAGS.forEach(function(x){ch+='<span class="ch'+(t.indexOf(x[0])>=0?' on':'')+'" data-a="tag" data-i="'+i+'|'+x[0]+'">'+x[1]+' '+x[0]+'</span>'});
+  ov('<h2 style="margin-top:0">'+E(S.names[i])+'</h2>'+img(r,'ic')+inf+btn('dead',(S.dead[i]?'☑':'☐')+' MUERTO','',i)+(S.dead[i]?btn('gh',(S.ghost[i]?'☑':'☐')+' VOTO FANTASMA DISPONIBLE','',i):'')+'<div>'+ch+'</div><textarea id="nt" rows="2" placeholder="Anotaciones del Narrador">'+E(S.notes[i]||'')+'</textarea>'+btn('sv','GUARDAR Y CERRAR','r',i))}
+function keepNote(i){var n=document.getElementById('nt');if(n){S.notes[i]=n.value}}
 function deal(){var n=S.names.length,c=CNT[n].slice(),p=P(),mi=shuf(p.e.slice()).slice(0,c[2]),de=p.d[Math.floor(Math.random()*p.d.length)];
-  if(mi.indexOf('BARÓN')>=0){c[1]+=2;c[0]-=2}if(de==='FANG GU'){c[1]+=1;c[0]-=1}
+  c[1]=Math.max(0,c[1]+(MOD[de]||0)+mi.reduce(function(s,m){return s+(MOD[m]||0)},0));c[0]=n-c[1]-c[2]-1;
   var r=shuf(p.a.slice()).slice(0,c[0]).concat(shuf(p.f.slice()).slice(0,c[1]),mi,[de]);
-  if(r.length!==n){alert('El script no tiene suficientes personajes para esta composición.');return false}
+  if(r.length!==n||c[0]<0){alert('El guion no tiene suficientes personajes para esta composición. Prueba con otro número de jugadores.');return false}
   S.roles=shuf(r);var free=shuf(p.a.filter(function(a){return S.roles.indexOf(a)<0}));
   S.vis=S.roles.map(function(x){return x==='BORRACHO'?(free.shift()||p.a[0]):x});
-  S.dead=S.roles.map(function(){return false});S.ghost=S.roles.map(function(){return true});S.notes=S.roles.map(function(){return ''});S.votes=[];S.done={};S.nieto='';newBluffs();save();return true}
-function newBluffs(){var p=P();S.bluffs=shuf(p.a.concat(p.f).filter(function(x){return S.roles.indexOf(x)<0})).slice(0,3)}
+  S.dead=S.roles.map(function(){return false});S.ghost=S.roles.map(function(){return true});S.notes=S.roles.map(function(){return ''});S.tags=S.roles.map(function(){return []});
+  S.noms=[];S.day=1;S.done={};newBluffs();save();return true}
+function newBluffs(){var p=P();S.bluffs=shuf(p.a.concat(p.f).filter(function(x){return S.roles.indexOf(x)<0&&S.vis.indexOf(x)<0})).slice(0,3)}
 var A={
 scr:function(i){S.script=i;save();render()},menu:function(){closeOv();go('menu')},count:function(){go('count')},chars:function(){go('chars')},grim:function(){closeOv();go('grim')},
 names:function(i){go('names',{n:+i})},
 deal:function(){var f=document.querySelectorAll('input.nm'),nm=[];for(var i=0;i<f.length;i++){var v=f[i].value.trim();if(!v){alert('Todos los jugadores deben tener un nombre.');return}nm.push(v)}S.names=nm;if(deal())go('pass',{i:0})},
 reveal:function(){go('reveal',{i:V.i})},hide:function(){if(V.i+1<S.names.length)go('pass',{i:V.i+1});else go('done')},
-pl:function(i){ficha(+i)},dead:function(i){S.dead[i]=!S.dead[i];save();closeOv();ficha(+i);},gh:function(i){S.ghost[i]=!S.ghost[i];save();closeOv();ficha(+i)},
-sv:function(i){S.notes[i]=document.getElementById('nt').value;save();closeOv();render()},
+pl:function(i){ficha(+i)},dead:function(i){keepNote(i);S.dead[i]=!S.dead[i];save();ficha(+i);render()},gh:function(i){keepNote(i);S.ghost[i]=!S.ghost[i];save();ficha(+i);render()},
+tag:function(x){var p=x.split('|'),i=+p[0];keepNote(i);var t=S.tags[i]||(S.tags[i]=[]),k=t.indexOf(p[1]);if(k>=0)t.splice(k,1);else t.push(p[1]);save();ficha(i)},
+sv:function(i){keepNote(i);save();closeOv();render()},
 n1:function(){go('night',{n:1})},n2:function(){go('night',{n:2})},sigs:function(){go('sigs')},votes:function(){go('votes')},
-ck:function(i){var k='n'+V.n+i;S.done[k]=!S.done[k];save();var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
+ck:function(i){S.done[i]=!S.done[i];save();var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
+nb:function(){newBluffs();save();var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
 cl:closeOv,board:function(){go('board')},clr:function(){cv.getContext('2d').clearRect(0,0,cv.width,cv.height)},
-sg:function(k){if(k==='dem')full('#a61414','<div class="big">ES EL DEMONIO</div>');else if(k==='min')full('#7a1010','<div class="big">ES TU ESBIRRO</div>');else if(k==='pt')full('#1b1410','<div class="big" style="color:#f2cc80">SEÑALA A ALGUIEN</div>');
-  else if(k==='bl')full('#1b1410','<div class="big" style="color:#f2cc80;font-size:30px">TUS COARTADAS</div><div class="big" style="font-size:36px;margin-top:20px">'+S.bluffs.join('<br>')+'</div>'+btn('nb','OTRAS COARTADAS','s'));
-  else{var o='';P().a.concat(P().f).forEach(function(n){o+='<option'+(S.nieto===n?' selected':'')+'>'+n+'</option>'});full('#1b1410','<div class="big" style="color:#f2cc80;font-size:28px">ES TU NIETO Y SU PERSONAJE ES...</div><div style="width:80%;margin-top:20px"><select id="ns">'+o+'</select></div>'+btn('nv','MOSTRAR','s'))}},
-nb:function(){newBluffs();save();closeOv();A.sg('bl')},nv:function(){var n=document.getElementById('ns').value;S.nieto=n;save();closeOv();full('#14306a','<div class="big" style="font-size:30px">NIETO</div><div class="big" style="margin-top:14px">'+n+'</div>')},
-nom:function(){var d=prompt('Número de día','1');d=parseInt(d,10);if(!(d>0))return;go('nominee',{d:d})},nm:function(i){var v=S.names.map(function(){return false});go('vote',{d:V.d,nom:+i,vt:v})},
-tg:function(i){V.vt[i]=!V.vt[i];render()},
-reg:function(){var vs=[];S.names.forEach(function(n,i){if(V.vt[i]){vs.push(n);if(S.dead[i])S.ghost[i]=false}});S.votes.push({d:V.d,n:V.nom,v:vs,a:alive()});save();go('votes')}
+sg:function(k){var T=function(t,c){return '<div class="big" style="color:'+(c||'#f2cc80')+';font-size:34px">'+t+'</div>'};
+  if(k==='dem')full('#a61414',T('ES EL DEMONIO','#fff'));else if(k==='min')full('#7a1010',T('ES TU ESBIRRO','#fff'));else if(k==='pt')full('#1b1410',T('SEÑALA A ALGUIEN'));else if(k==='el')full('#1b1410',T('ESTE PERSONAJE TE HA ELEGIDO'));else if(k==='pg')full('#1b1410','<div class="big">👍</div><div class="big" style="margin-top:20px">👎</div>');
+  else if(k==='bl')full('#1b1410',T('ESTOS PERSONAJES NO ESTÁN EN JUEGO')+'<div style="margin-top:18px">'+S.bluffs.map(function(b){return '<div style="display:inline-block;margin:6px;width:140px">'+img(b,'ic')+'<div class="big" style="font-size:18px">'+R[b].n+'</div></div>'}).join('')+'</div>'+btn('nb2','OTRAS COARTADAS','s'));
+  else{var o='',p=P();p.a.concat(p.f,p.e,p.d).forEach(function(n){o+='<option value="'+n+'">'+R[n].n+'</option>'});full('#1b1410',T(k==='ni'?'ES TU NIETO Y SU PERSONAJE ES…':'TÚ ERES…')+'<div style="width:80%;margin-top:20px"><select id="ns">'+o+'</select></div>'+btn('nv','MOSTRAR','s'))}},
+nb2:function(){newBluffs();save();A.sg('bl')},nv:function(){var n=document.getElementById('ns').value;full('#14306a','<div style="margin:10px">'+img(n,'ic')+'</div><div class="big">'+R[n].n+'</div>')},
+nom:function(){go('nom1')},n2:function(i){go('nom2',{a:+i})},n3:function(i){go('vote',{a:V.a,b:+i,vt:S.names.map(function(){return false})})},
+tg:function(i){V.vt[i]=!V.vt[i];var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
+reg:function(){var vs=[],g=[];S.names.forEach(function(n,i){if(V.vt[i]){vs.push(i);if(S.dead[i]){S.ghost[i]=false;g.push(i)}}});S.noms.push({d:S.day,a:V.a,b:V.b,v:vs,m:Math.ceil(alive()/2),g:g});save();go('votes')},
+del:function(i){if(!confirm('¿Borrar esta nominación?'))return;var n=S.noms.splice(+i,1)[0];(n.g||[]).forEach(function(k){S.ghost[k]=true});save();render()},
+exe:function(i){if(!confirm('¿Ejecutar a '+S.names[i]+'?'))return;S.dead[i]=true;S.noms.forEach(function(n){if(n.d===S.day&&n.b===+i)n.ex=true});save();go('grim')},
+day:function(){if(confirm('¿Pasar al día '+(S.day+1)+'?')){S.day++;save();render()}}
 };
-document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-a')))t=t.parentNode;if(!t||t===document)return;var a=t.getAttribute('data-a'),i=t.getAttribute('data-i');if(A[a])A[a](i)});
+document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-a')))t=t.parentNode;if(!t||t===document)return;var a=t.getAttribute('data-a'),i=t.getAttribute('data-i');if(t.disabled)return;if(A[a])A[a](i)});
 if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
 render();
 </script></body></html>
