@@ -1,4 +1,4 @@
-var V='botc-v2',F=['./','index.html','data.js','manifest.webmanifest','icon-180.png','icon-512.png'];
+var V='botc-v3',F=['./','index.html','data.js','manifest.webmanifest','icon-180.png','icon-512.png'];
 self.addEventListener('install',function(e){e.waitUntil(caches.open(V).then(function(c){return Promise.all(F.map(function(f){return c.add(f).catch(function(){})}))}));self.skipWaiting()});
 self.addEventListener('activate',function(e){e.waitUntil(caches.keys().then(function(k){return Promise.all(k.filter(function(n){return n.indexOf('botc-')===0&&n!==V}).map(function(n){return caches.delete(n)}))}).then(function(){return self.clients.claim()}))});
-self.addEventListener('fetch',function(e){var q=e.request;if(q.method!=='GET')return;e.respondWith(fetch(q).then(function(r){if(r.ok){var c=r.clone();caches.open(V).then(function(x){x.put(q,c)})}return r}).catch(function(){return caches.match(q)}))});
+self.addEventListener('fetch',function(e){var q=e.request;if(q.method!=='GET')return;e.respondWith(fetch(new Request(q.url,{cache:'reload'})).then(function(r){if(r.ok){var c=r.clone();caches.open(V).then(function(x){x.put(q,c)})}return r}).catch(function(){return caches.match(q)}))});
