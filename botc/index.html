@@ -45,9 +45,9 @@ canvas{background:#fafafa;border-radius:10px;-webkit-flex:1;flex:1;width:100%;to
 .bt{font-weight:700;line-height:1.05;text-align:center;padding:0 3vw;overflow-wrap:break-word;word-wrap:break-word;color:#fff}
 .full .b.s{font-size:20px;padding:12px 26px}.full img.tk{width:min(34vw,34vh);height:min(34vw,34vh);margin:1vh 0}.tray{margin:8px 0}.tray .b{display:block;width:100%;background:#3a0f12;border-color:#f20d0d;color:#fff;font-size:18px;margin:6px 0}
 </style></head><body><div id="app"></div>
-<script src="data.js?v=4"></script>
+<script src="data.js?v=5"></script>
 <script>
-var VER='v4';
+var VER='v5';
 window.onerror=function(m,u,l){var a=document.getElementById('app');if(a)a.innerHTML='<div style="padding:20px;color:#f88;font:16px monospace">ERROR: '+m+' (línea '+l+') · '+VER+'</div>'};
 if(typeof SC==='undefined'){document.getElementById('app').innerHTML='<div style="padding:20px;font-size:18px">No se ha podido cargar data.js. Comprueba que está en la misma carpeta que index.html.</div>';throw 'nodata'}
 var TC={ALDEANO:'#6fd0ff',FORASTERO:'#2b4fe0',ESBIRRO:'#9a1212',DEMONIO:'#ff2222'},TBG={ALDEANO:'#0b3b57',FORASTERO:'#0e1a62',ESBIRRO:'#4a0b0b',DEMONIO:'#8a0000'};
@@ -55,7 +55,7 @@ var TAGS=[['ENVENENADO','☠'],['BORRACHO','🍺'],['A SALVO','🛡'],['NIETO','
 var CNT={5:[3,0,1],6:[3,1,1],7:[5,0,1],8:[5,1,1],9:[5,2,1],10:[7,0,2],11:[7,1,2],12:[7,2,2],13:[9,0,3],14:[9,1,3],15:[9,2,3]},MOD={'BARÓN':2,'FANG GU':1,'VIGORMORTIS':-1};
 var MK={},S=null,V={s:'menu'},app=document.getElementById('app'),cv=null;
 try{S=JSON.parse(localStorage.getItem('botc2'))}catch(e){}
-S=S||{script:'EL COMIENZO',names:[],roles:[],vis:[],dead:[],ghost:[],notes:[],tags:[],bluffs:[],day:1,nights:0,st:0,nd:[],noms:[],done:{}};
+S=S||{script:'EL COMIENZO',names:[],roles:[],vis:[],dead:[],ghost:[],notes:[],tags:[],bluffs:[],day:1,nights:0,st:0,nd:[],noms:[],done:{},log:[]};
 function save(){try{localStorage.setItem('botc2',JSON.stringify(S))}catch(e){}}
 function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
@@ -67,11 +67,13 @@ function hd(t,s){return '<h1>'+t+'</h1><div class="sub">'+(s||'')+'</div>'}
 function show(h){app.innerHTML=h}function render(){var f=Rn[V.s];f&&f()}
 function go(s,x){V={s:s};for(var k in x)V[k]=x[k];render()}
 function dots(n){var s='';for(var i=0;i<n;i++)s+=' <span class="dot">●</span>';return s}
-function ring(hl){var n=S.names.length,h='<div class="ring"><div class="ctr"><b>'+(S.nights?'DÍA '+S.day:'NOCHE 1')+'</b>'+alive()+' vivos de '+n+'</div>';
+function ring(hl){var n=S.names.length,h='<div class="ring"><div class="ctr"><b>'+(V.s==='nw'?'NOCHE '+(S.nights+1):(S.nights?'DÍA '+S.day:'NOCHE 1'))+'</b>'+alive()+' vivos de '+n+'</div>';
   S.names.forEach(function(nm,i){var a=-Math.PI/2+i*2*Math.PI/n,r=S.roles[i],bd='',w=hl&&hl.indexOf(i)>=0;(S.tags[i]||[]).forEach(function(t){TAGS.forEach(function(x){if(x[0]===t)bd+=x[1]})});
     h+='<div class="pl'+(S.dead[i]?' x':'')+(w?' w':'')+'" data-a="pl" data-i="'+i+'" style="left:'+(50+41*Math.cos(a))+'%;top:'+(50+39*Math.sin(a))+'%"><div class="ci" style="border-color:'+col(r)+';box-shadow:0 0 12px '+col(r)+'">'+img(r)+(S.dead[i]?'<s>✝</s>':'')+(bd?'<span class="bd">'+bd+'</span>':'')+(S.dead[i]&&S.ghost[i]?'<span class="gv">🗳</span>':'')+'</div><b>'+E(nm)+'</b><i>'+R[r].n+'</i>'+(S.notes[i]?'<em class="nt">'+E(S.notes[i])+'</em>':'')+'</div>'});
   return h+'</div>'}
 function steps(n){var out=[];P()['n'+n].forEach(function(x){var k=x[0],sp=SP[k]!==undefined,w=[];if(!sp){S.roles.forEach(function(r,i){if(S.vis[i]===k)w.push(i)});if(!w.length)return}out.push({k:k,t:x[1],d:x[2],w:w})});return out}
+function curPh(){return V.s==='nw'?'N'+(S.nights+1):(S.nights?'D'+S.day:'N1')}
+function lg(t,ph){var d=new Date(),m=('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);S.log=S.log||[];ph=ph||curPh();for(var i=Math.max(0,S.log.length-40);i<S.log.length;i++){if(S.log[i][0]===ph&&S.log[i][1]===t&&t.indexOf('Despierta')===0)return}S.log.push([ph,t,m])}
 function fit(){var r=document.querySelector('.ring');if(!r)return;var t=Math.max(40,Math.min(78,Math.min(r.clientWidth,r.clientHeight)/(S.names.length<=8?5.4:S.names.length<=11?6.4:7.4)));r.style.setProperty('--t',t+'px')}
 window.addEventListener('resize',function(){setTimeout(fit,120)});window.addEventListener('orientationchange',function(){setTimeout(fit,300)});
 var Rn={
@@ -86,7 +88,7 @@ names:function(){var h='<div class="sc"><div class="mid">'+hd('NOMBRES DE LOS JU
 pass:function(){var nm=S.names[V.i];show('<div class="mid">'+hd('REPARTO SECRETO','JUGADOR '+(V.i+1)+' DE '+S.names.length)+'<div class="big">'+E(nm)+'</div><p style="font-size:20px">Pasa la tablet a <b>'+E(nm)+'</b>.<br>Cuando nadie más pueda ver la pantalla, descubre tu personaje.</p>'+btn('reveal','DESCUBRIR MI PERSONAJE','r')+'</div>')},
 reveal:function(){var r=S.vis[V.i];show('<div class="mid">'+hd('ESTE PERSONAJE ES SECRETO','')+'<div class="card" style="display:block;text-align:center;border:3px solid '+col(r)+'">'+img(r,'ic')+'<div class="sub" style="margin:6px">'+R[r].t+'</div><div class="big" style="font-size:36px">'+R[r].n+'</div><p style="font-size:19px">'+E(R[r].d)+'</p></div>'+btn('hide','OCULTAR PERSONAJE','r')+'</div>')},
 done:function(){show('<div class="mid">'+hd('REPARTO COMPLETADO','')+'<p style="font-size:20px">Todos los personajes han sido repartidos.<br>El Grimorio está listo.</p>'+btn('grim','ABRIR GRIMORIO','r')+'</div>')},
-grim:function(){var nn=S.nights+1;show(hd('GRIMORIO',S.script)+ring()+'<div class="bar">'+btn('nw','🌙 '+(S.nights?'NOCHE '+nn:'1ª NOCHE'),'s on')+btn('lst','LISTA','s')+btn('sigs','FICHAS','s')+btn('votes','NOMINACIONES','s')+btn('menu','⌂ INICIO','s')+'</div>');fit()},
+grim:function(){var nn=S.nights+1;show(hd('GRIMORIO',S.script)+ring()+'<div class="bar">'+btn('nw','🌙 '+(S.nights?'NOCHE '+nn:'1ª NOCHE'),'s on')+btn('lst','LISTA','s')+btn('sigs','FICHAS','s')+btn('votes','NOMINACIONES','s')+btn('log','📜 REGISTRO','s')+btn('menu','⌂ INICIO','s')+'</div>');fit()},
 nw:function(){var st=steps(V.n),i=Math.max(0,Math.min(S.st||0,st.length-1)),x=st[i],k=x.k,sp=SP[k]!==undefined,nm=sp?k:R[k].n,ic=sp?SP[k]:R[k].i,last=i===st.length-1,names=x.w.map(function(j){return E(S.names[j])+(S.dead[j]?' ✝':'')}).join(' y '),dead=x.w.length&&x.w.every(function(j){return S.dead[j]}),hl=x.w.slice(),p='';
   if(k==='ESBIRROS'||k==='DEMONIOS'){S.roles.forEach(function(r,j){if(R[r].t===(k==='ESBIRROS'?'ESBIRRO':'DEMONIO'))hl.push(j)})}
   var es=[],de='';S.roles.forEach(function(r,j){if(R[r].t==='ESBIRRO')es.push(S.names[j]);if(R[r].t==='DEMONIO')de=S.names[j]});
@@ -100,7 +102,7 @@ nw:function(){var st=steps(V.n),i=Math.max(0,Math.min(S.st||0,st.length-1)),x=st
   if(x.w.length&&!dead)p+='<div style="color:#8a7a5a;font-size:15px">Al terminar: 💤 manda a dormir a '+names+'.</div>';
   if(TRAY[k]){p+='<div class="tray">';TRAY[k].forEach(function(t){p+=btn('tk',t[1],'',t[0])});p+='</div>'}
   if(k==='AMANECER'){p+='<h2>¿Quién ha muerto esta noche?</h2><div>';S.names.forEach(function(n,j){if(!S.dead[j]){var on=S.nd.indexOf(j)>=0||((S.tags[j]||[]).indexOf('VA A MORIR')>=0&&S.nd.indexOf(-j-1)<0);p+='<span class="ch'+(on?' on':'')+'" data-a="dw" data-i="'+j+'">'+E(n)+'</span>'}});p+='</div>'}
-  p+='<div class="bar" style="margin-top:10px">'+(i>0?btn('pv','◀ ANTERIOR','s'):'')+btn('pk','🎯 MARCAR JUGADOR','s')+btn('lst','LISTA','s')+(last?btn('dc','☀ AMANECER','s on'):btn('nx','SIGUIENTE ▶','s on'))+'</div>';
+  p+='<div class="bar" style="margin-top:10px">'+(i>0?btn('pv','◀ ANTERIOR','s'):'')+btn('pk','🎯 MARCAR JUGADOR','s')+btn('lst','LISTA','s')+(last?btn('dc','☀ AMANECER','s on'):btn('nx','SIGUIENTE ▶','s on')+btn('sk','⏭ AL AMANECER','s'))+'</div>';
   show(hd('NOCHE '+(V.n===1?1:S.nights+1),S.script)+'<div class="nw">'+ring(hl)+'<div class="pn">'+p+'</div></div><div class="bar">'+btn('grim','⌂ GRIMORIO','s')+'</div>');fit()},
 night:function(){var o=P()['n'+V.n],h=hd(V.n===1?'PRIMERA NOCHE':'NOCHES SIGUIENTES','ORDEN DE INTERVENCIONES')+'<div class="sc">',k=0,es=[],de='';
   S.roles.forEach(function(r,i){if(R[r].t==='ESBIRRO')es.push(S.names[i]);if(R[r].t==='DEMONIO')de=S.names[i]});
@@ -110,19 +112,23 @@ night:function(){var o=P()['n'+V.n],h=hd(V.n===1?'PRIMERA NOCHE':'NOCHES SIGUIEN
     else{var any=false;S.roles.forEach(function(r,i){if(S.vis[i]===key){var t=S.names[i]+(S.roles[i]==='BORRACHO'?' 🍺 (BORRACHO: info falsa)':'')+(S.dead[i]?' ✝':'');w.push(t);if(!S.dead[i])any=true}});if(!w.length)return;d=!any&&V.n===2}
     k++;var id=(V.n)+key;h+='<div class="card'+(d?' d':'')+(S.done[id]?' ok':'')+'" data-a="ck" data-i="'+id+'">'+(ic?'<img class="ni" src="'+ic+'">':'')+'<div><small>'+k+'.</small><b>'+nm+'</b>'+(w.length?' — '+E(w.join(' y ')):'')+'<div>'+E(x[1])+dots(x[2])+extra+'</div></div></div>'});
   show(h+'</div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+btn('nw','🌙 NOCHE GUIADA','s on')+'</div>')},
-sigs:function(){show(hd('FICHAS DEL NARRADOR','SEÑALES RÁPIDAS')+'<div class="sc"><div class="mid">'+btn('sg','ES EL DEMONIO','r','dem')+btn('sg','ES TU ESBIRRO','r','min')+btn('sg','SEÑALA A ALGUIEN','','pt')+btn('sg','TUS COARTADAS','','bl')+btn('sg','TÚ ERES…','','ti')+btn('sg','ES TU NIETO Y SU PERSONAJE ES…','','ni')+btn('rg','TODOS LOS PERSONAJES')+btn('board','PIZARRA')+'</div></div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+'</div>')},
+sigs:function(){show(hd('FICHAS DEL NARRADOR','SEÑALES RÁPIDAS')+'<div class="sc"><div class="mid">'+btn('sg','ES EL DEMONIO','r','dem')+btn('sg','ES TU ESBIRRO','r','min')+btn('sg','SEÑALA A ALGUIEN','','pt')+btn('tk','SEÑALA A ALGUIEN PARA MATAR','r','kill')+btn('sg','TUS COARTADAS','','bl')+btn('sg','TÚ ERES…','','ti')+btn('sg','ES TU NIETO Y SU PERSONAJE ES…','','ni')+btn('rg','TODOS LOS PERSONAJES')+btn('board','PIZARRA')+'</div></div><div class="bar">'+btn('grim','VOLVER AL GRIMORIO','s')+'</div>')},
 votes:function(){var h=hd('NOMINACIONES','DÍA '+S.day+' · '+alive()+' vivos · mayoría: '+Math.ceil(alive()/2))+'<div class="sc">',b=block();
   if(b.t)h+='<div class="card hl"><div>'+(b.tie?'<b>EMPATE</b> entre los más votados: nadie sería ejecutado.':'<b>EN EL PATÍBULO:</b> '+E(S.names[b.i])+' con '+b.v+' votos'+btn('exe','EJECUTAR A '+E(S.names[b.i]).toUpperCase(),'r',b.i))+'</div></div>';
   var any=false;for(var d=S.day;d>=1;d--){var l=S.noms.filter(function(n){return n.d===d});if(!l.length)continue;any=true;h+='<h2>DÍA '+d+'</h2>';
     l.forEach(function(n){var ix=S.noms.indexOf(n);h+='<div class="card"><div><small>NOMINACIÓN '+(l.indexOf(n)+1)+(n.ex?' · EJECUTADO':'')+'</small><b>'+E(S.names[n.a])+'</b> nomina a <b>'+E(S.names[n.b])+'</b><br>'+n.v.length+(n.v.length===1?' voto':' votos')+' (mayoría '+n.m+'): '+(n.v.length?E(n.v.map(function(i){return S.names[i]}).join(', ')):'nadie')+'</div>'+btn('del','✕','s',ix)+'</div>'})}
   if(!any)h+='<p style="text-align:center">Todavía no hay nominaciones.</p>';
-  show(h+'</div><div class="bar">'+btn('nom','NUEVA NOMINACIÓN','r')+btn('grim','VOLVER','s')+'</div>')},
+  show(h+'</div><div class="bar">'+btn('nom','NUEVA NOMINACIÓN','r')+btn('endday','🌙 FIN DEL DÍA → NOCHE '+(S.nights+1),'s on')+btn('grim','VOLVER','s')+'</div>')},
 nom1:function(){var h=hd('¿QUIÉN NOMINA?','DÍA '+S.day+' · jugadores vivos que aún no han nominado hoy')+'<div class="sc">';S.names.forEach(function(n,i){if(!S.dead[i]){var u=S.noms.some(function(x){return x.d===S.day&&x.a===i});h+='<button class="b" data-a="n2" data-i="'+i+'"'+(u?' disabled':'')+'>'+E(n)+(u?' (ya nominó)':'')+'</button>'}});show(h+'</div><div class="bar">'+btn('votes','CANCELAR','s')+'</div>')},
 nom2:function(){var h=hd('¿A QUIÉN NOMINA '+E(S.names[V.a]).toUpperCase()+'?','solo se puede nominar una vez a cada jugador por día')+'<div class="sc">';S.names.forEach(function(n,i){if(i!==V.a){var u=S.noms.some(function(x){return x.d===S.day&&x.b===i});h+='<button class="b" data-a="n3" data-i="'+i+'"'+(u?' disabled':'')+'>'+E(n)+(S.dead[i]?' ✝':'')+(u?' (ya nominado)':'')+'</button>'}});show(h+'</div><div class="bar">'+btn('votes','CANCELAR','s')+'</div>')},
 vote:function(){var n=S.names.length,h=hd('VOTACIÓN','<b>'+E(S.names[V.a])+'</b> nomina a <b>'+E(S.names[V.b])+'</b> · '+(V.vt.filter(Boolean).length)+' votos · mayoría '+Math.ceil(alive()/2))+'<div class="sc">';
   for(var k=1;k<=n;k++){var i=(V.b+k)%n;if(!S.dead[i]||S.ghost[i])h+=btn('tg',(V.vt[i]?'☑ ':'☐ ')+E(S.names[i])+(S.dead[i]?' ✝ (voto fantasma)':''),V.vt[i]?'on':'',i)}
   show(h+'</div><div class="bar">'+btn('reg','REGISTRAR VOTACIÓN','r')+btn('votes','CANCELAR','s')+'</div>')},
 rg:function(){var p=P(),h=hd('TODOS LOS PERSONAJES','Toca un símbolo para marcarlo')+'<div class="sc">';[['a','ALDEANOS'],['f','FORASTEROS'],['e','ESBIRROS'],['d','DEMONIOS']].forEach(function(g){h+='<h2 style="color:'+TC[R[p[g[0]][0]].t]+'">'+g[1]+'</h2><div class="rgw">';p[g[0]].forEach(function(n){var m=MK[n];h+='<div class="rt'+(m?' on':'')+'" data-a="rgm" data-i="'+n+'" style="border-color:'+col(n)+'">'+img(n)+'<span>'+R[n].n+'</span>'+(m?'<u>✔</u>':'')+'</div>'});h+='</div>'});show(h+'</div><div class="bar">'+btn('rgc','LIMPIAR MARCAS','s')+btn('sigs','VOLVER','s')+'</div>')},
+log:function(){var h=hd('REGISTRO DE LA PARTIDA','Resumen cronológico por noches y días')+'<div class="sc">',cur='';
+  S.log.forEach(function(e){if(e[0]!==cur){cur=e[0];h+='<h2 style="color:'+(cur.charAt(0)==='N'?'#a5b4fc':'#f2cc80')+'">'+(cur.charAt(0)==='N'?'🌙 NOCHE ':'☀ DÍA ')+cur.slice(1)+'</h2>'}h+='<div class="card"><div><small>'+e[2]+'</small>'+E(e[1])+'</div></div>'});
+  if(!S.log.length)h+='<p style="text-align:center">Aún no hay nada registrado.</p>';
+  show(h+'</div><div class="bar">'+btn('lgc','COPIAR TEXTO','s')+btn('grim','VOLVER','s')+'</div>')},
 chars:function(){var p=P(),h=hd('PERSONAJES',S.script)+'<div class="sc">';[['a','ALDEANOS'],['f','FORASTEROS'],['e','ESBIRROS'],['d','DEMONIOS']].forEach(function(g){h+='<h2 style="color:'+TC[R[p[g[0]][0]].t]+'">'+g[1]+'</h2>';p[g[0]].forEach(function(n){h+='<div class="card" style="border-color:'+col(n)+'">'+img(n,'ni')+'<div><b>'+R[n].n+'</b><div>'+E(R[n].d)+'</div></div></div>'})});show(h+'</div><div class="bar">'+btn('menu','VOLVER','s')+'</div>')},
 board:function(){show(hd('PIZARRA','')+'<canvas id="cv"></canvas><div class="bar">'+btn('clr','BORRAR','s')+btn('sigs','VOLVER','s')+'</div>');var c=document.getElementById('cv');c.width=c.clientWidth;c.height=c.clientHeight;var x=c.getContext('2d'),d=false;x.lineWidth=3;x.lineCap='round';x.lineJoin='round';
   function pt(e){var r=c.getBoundingClientRect(),t=e.touches?e.touches[0]:e;return[t.clientX-r.left,t.clientY-r.top]}
@@ -142,6 +148,8 @@ function pickRole(mode,t){var o='',p=P();p.a.concat(p.f,p.e,p.d).forEach(functio
 function pickPlayer(mode){var h='<h2 style="margin-top:0">¿DE QUÉ JUGADOR?</h2>';S.names.forEach(function(n,i){h+='<span class="ch" data-a="pj2" data-i="'+i+'">'+E(n)+(S.dead[i]?' ✝':'')+'</span>'});ov(h+btn('cl','CERRAR','s'))}
 function pickNum(){var h='<h2 style="margin-top:0">NÚMERO A MOSTRAR</h2>';for(var i=0;i<=10;i++)h+='<span class="ch" style="font-size:26px;padding:10px 18px" data-a="shn" data-i="'+i+'">'+i+'</span>';ov(h+btn('cl','CERRAR','s'))}
 var TRAY={'ESBIRROS':[['dem','ES EL DEMONIO']],'DEMONIOS':[['min','ESTOS SON TUS ESBIRROS'],['nij','ESTOS PERSONAJES NO ESTÁN EN JUEGO']],'LAVANDERA':[['pers','FICHA DEL PERSONAJE']],'BIBLIOTECARIO':[['pers','FICHA DEL PERSONAJE']],'INVESTIGADOR':[['pers','FICHA DEL PERSONAJE']],'ABUELA':[['nieto','ES TU NIETO Y SU PERSONAJE ES…']],'GUARDIÁN DE CUERVOS':[['pj','FICHA DE ESE JUGADOR']],'ENTERRADOR':[['pj','FICHA DEL EJECUTADO']],'CHEF':[['num','MOSTRAR NÚMERO']],'EMPÁTICO':[['num','MOSTRAR NÚMERO']],'RELOJERO':[['num','MOSTRAR NÚMERO']],'ORÁCULO':[['num','MOSTRAR NÚMERO']],'MATEMÁTICO':[['num','MOSTRAR NÚMERO']],'MALABARISTA':[['num','MOSTRAR NÚMERO']],'ENCANTADOR DE SERPIENTES':[['eres','TÚ ERES…']],'MUJER ESCARLATA':[['eres','TÚ ERES…']],'DIABLILLO':[['eres','TÚ ERES…']],'PIT-HAG':[['eres','TÚ ERES…']],'FANG GU':[['eres','TÚ ERES…']],'BARBERO':[['eres','TÚ ERES…']],'CERENOVUS':[['eres','FICHA DEL PERSONAJE']],'GEMELA MALVADA':[['pers','FICHA DEL GEMELO']],'FILÓSOFO':[['pers','FICHA DEL PERSONAJE']],'SOÑADOR':[['two','1 BUENO Y 1 MALO']]};
+['ENVENENADOR','MONJE','ABOGADO DEL DIABLO','ASESINO','BRUJA','MAYORDOMO','COSTURERA','PITONISA'].forEach(function(k){TRAY[k]=(TRAY[k]||[]).concat([['pt','SEÑALA A ALGUIEN']])});
+['DIABLILLO','FANG GU','NO DASHII','VORTOX','VIGORMORTIS'].forEach(function(k){TRAY[k]=[['kill','SEÑALA A ALGUIEN PARA MATAR']].concat(TRAY[k]||[])});
 function ficha(i){var r=S.roles[i],v=S.vis[i],t=S.tags[i]||[];
   var inf='<div class="sub" style="color:'+col(r)+'">'+R[r].t+'</div><b style="font-size:24px;color:#f2cc80">'+R[r].n+'</b><p>'+E(R[r].d)+'</p>'+(r==='BORRACHO'?'<div class="card" style="display:block;text-align:center">CREE SER:<br>'+img(v,'ic')+'<br><b>'+R[v].n+'</b></div>':'');
   var ch='';TAGS.forEach(function(x){ch+='<span class="ch'+(t.indexOf(x[0])>=0?' on':'')+'" data-a="tag" data-i="'+i+'|'+x[0]+'">'+(t.indexOf(x[0])>=0?'✔ ':'')+x[1]+' '+x[0]+'</span>'});
@@ -154,22 +162,22 @@ function deal(){var n=S.names.length,c=CNT[n].slice(),p=P(),mi=shuf(p.e.slice())
   S.roles=shuf(r);var free=shuf(p.a.filter(function(a){return S.roles.indexOf(a)<0}));
   S.vis=S.roles.map(function(x){return x==='BORRACHO'?(free.shift()||p.a[0]):x});
   S.dead=S.roles.map(function(){return false});S.ghost=S.roles.map(function(){return true});S.notes=S.roles.map(function(){return ''});S.tags=S.roles.map(function(){return []});
-  S.noms=[];S.day=1;S.nights=0;S.st=0;S.nd=[];S.done={};newBluffs();save();return true}
+  S.noms=[];S.day=1;S.nights=0;S.st=0;S.nd=[];S.done={};S.log=[];newBluffs();lg('Empieza la partida: '+S.script+', '+n+' jugadores.','N1');save();return true}
 function newBluffs(){var p=P();S.bluffs=shuf(p.a.concat(p.f).filter(function(x){return x!=='BORRACHO'&&S.roles.indexOf(x)<0&&S.vis.indexOf(x)<0})).slice(0,3)}
 var A={
 scr:function(i){S.script=i;save();render()},menu:function(){closeOv();go('menu')},count:function(){go('count')},chars:function(){go('chars')},grim:function(){closeOv();go('grim')},
 names:function(i){go('names',{n:+i})},
 deal:function(){var f=document.querySelectorAll('input.nm'),nm=[];for(var i=0;i<f.length;i++){var v=f[i].value.trim();if(!v){alert('Todos los jugadores deben tener un nombre.');return}nm.push(v)}S.names=nm;if(deal())go('pass',{i:0})},
 reveal:function(){go('reveal',{i:V.i})},hide:function(){if(V.i+1<S.names.length)go('pass',{i:V.i+1});else go('done')},
-pl:function(i){ficha(+i)},dead:function(i){keepNote(i);S.dead[i]=!S.dead[i];save();ficha(+i);render()},gh:function(i){keepNote(i);S.ghost[i]=!S.ghost[i];save();ficha(+i);render()},
-tag:function(x){var p=x.split('|'),i=+p[0];keepNote(i);var t=S.tags[i]||(S.tags[i]=[]),k=t.indexOf(p[1]);if(k>=0)t.splice(k,1);else t.push(p[1]);save();ficha(i);render()},
+pl:function(i){ficha(+i)},dead:function(i){keepNote(i);S.dead[i]=!S.dead[i];lg((S.dead[i]?'✝ Muere ':'↺ Revive ')+S.names[i]+' ('+R[S.roles[i]].n+').');save();ficha(+i);render()},gh:function(i){keepNote(i);S.ghost[i]=!S.ghost[i];lg('🗳 '+S.names[i]+(S.ghost[i]?' recupera':' pierde')+' el voto fantasma.');save();ficha(+i);render()},
+tag:function(x){var p=x.split('|'),i=+p[0];keepNote(i);var t=S.tags[i]||(S.tags[i]=[]),k=t.indexOf(p[1]);if(k>=0)t.splice(k,1);else t.push(p[1]);lg((k>=0?'Se quita ':'Se marca ')+p[1]+(k>=0?' a ':' a ')+S.names[i]+'.');save();ficha(i);render()},
 sv:function(i){keepNote(i);save();closeOv();render()},
 nw:function(){V={s:'nw',n:S.nights?2:1};if(V.n!==S.stn){S.st=0;S.stn=V.n}save();render()},lst:function(){go('night',{n:S.nights?2:1})},
-nx:function(){S.st=(S.st||0)+1;save();render()},pv:function(){S.st=Math.max(0,(S.st||0)-1);save();render()},
+nx:function(){var st=steps(V.n),x=st[Math.min(S.st||0,st.length-1)];if(x){var sp=SP[x.k]!==undefined,nm=sp?x.k.charAt(0)+x.k.slice(1).toLowerCase():R[x.k].n;lg('Despierta: '+nm+(x.w.length?' ('+x.w.map(function(j){return S.names[j]}).join(', ')+')':''),'N'+(S.nights+1))}S.st=(S.st||0)+1;save();render()},sk:function(){S.st=steps(V.n).length-1;save();render()},endday:function(){lg('Termina el día '+S.day+'.','D'+S.day);A.nw()},lgc:function(){var c='',t='';S.log.forEach(function(e){if(e[0]!==c){c=e[0];t+='\n'+(c.charAt(0)==='N'?'NOCHE ':'DÍA ')+c.slice(1)+'\n'}t+=e[2]+'  '+e[1]+'\n'});var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(a);alert(ok?'Registro copiado.':'No se pudo copiar automáticamente.')},pv:function(){S.st=Math.max(0,(S.st||0)-1);save();render()},
 pk:function(){var h='<h2 style="margin-top:0">¿A QUÉ JUGADOR?</h2>';S.names.forEach(function(n,i){h+='<span class="ch" data-a="pkp" data-i="'+i+'">'+E(n)+(S.dead[i]?' ✝':'')+'</span>'});ov(h+btn('cl','CERRAR','s'))},pkp:function(i){ficha(+i)},
 dw:function(i){i=+i;var tg=(S.tags[i]||[]).indexOf('VA A MORIR')>=0,k=S.nd.indexOf(i),k2=S.nd.indexOf(-i-1);if(tg){if(k2>=0)S.nd.splice(k2,1);else S.nd.push(-i-1)}else{if(k>=0)S.nd.splice(k,1);else S.nd.push(i)}save();var sc=document.querySelector('.pn').scrollTop;render();document.querySelector('.pn').scrollTop=sc},
 dc:function(){var m=[];S.names.forEach(function(n,j){if(S.dead[j])return;var tg=(S.tags[j]||[]).indexOf('VA A MORIR')>=0,d=tg?S.nd.indexOf(-j-1)<0:S.nd.indexOf(j)>=0;if(d){S.dead[j]=true;m.push(n)}var t=S.tags[j]||[],q=t.indexOf('VA A MORIR');if(q>=0)t.splice(q,1)});
-  S.nights++;S.day=S.nights;S.st=0;S.nd=[];S.stn=0;save();ov('<h2 style="margin-top:0">☀ AMANECER</h2><p style="font-size:22px">'+(m.length?'Esta noche '+(m.length>1?'han muerto':'ha muerto')+':<br><b>'+E(m.join(', '))+'</b>':'Esta noche no ha muerto nadie.')+'</p>'+btn('grim','EMPEZAR EL DÍA '+S.day,'r'));render()},
+  lg(m.length?'☀ Amanecer: '+(m.length>1?'mueren ':'muere ')+m.join(', ')+'.':'☀ Amanecer: no muere nadie.','N'+(S.nights+1));S.nights++;S.day=S.nights;lg('Empieza el día '+S.day+'.','D'+S.day);S.st=0;S.nd=[];S.stn=0;save();ov('<h2 style="margin-top:0">☀ AMANECER</h2><p style="font-size:22px">'+(m.length?'Esta noche '+(m.length>1?'han muerto':'ha muerto')+':<br><b>'+E(m.join(', '))+'</b>':'Esta noche no ha muerto nadie.')+'</p>'+btn('grim','EMPEZAR EL DÍA '+S.day,'r'));render()},
 upd:function(){var p=[];if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)p.push(navigator.serviceWorker.getRegistrations().then(function(r){return Promise.all(r.map(function(x){return x.unregister()}))}));if(window.caches)p.push(caches.keys().then(function(k){return Promise.all(k.map(function(n){return caches.delete(n)}))}));Promise.all(p).then(function(){location.reload(true)})},
 sigs:function(){go('sigs')},votes:function(){go('votes')},
 ck:function(i){S.done[i]=!S.done[i];save();var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
@@ -185,16 +193,17 @@ tk:function(k){closeOv();
   if(k==='dem')full('#8a0000',tki(SP['DEMONIOS'])+bigT('ESTE ES EL DEMONIO')+bigT(demon().toUpperCase(),'#ffd1d1','min(9vw,13vh)'));
   else if(k==='min')full('#5a0a0a',tki(SP['ESBIRROS'])+bigT('ESTOS SON TUS ESBIRROS')+bigT(minions().map(function(x){return x.toUpperCase()}).join(' · '),'#ffd1d1','min(8vw,12vh)'));
   else if(k==='nij')full('#1b1410',bigT('ESTOS PERSONAJES NO ESTÁN EN JUEGO','#f2cc80','min(6.5vw,10vh)')+'<div style="display:-webkit-flex;display:flex;-webkit-justify-content:center;justify-content:center">'+S.bluffs.map(function(b){return '<div style="margin:0 1.5vw">'+tki(R[b].i)+bigT(R[b].n.toUpperCase(),'#fff','min(4vw,7vh)')+'</div>'}).join('')+'</div>'+btn('nb2','OTRAS COARTADAS','s'));
+  else if(k==='kill')full('#8a0000',bigT('SEÑALA A ALGUIEN PARA MATAR'));else if(k==='pt')full('#1b1410',bigT('SEÑALA A ALGUIEN','#f2cc80'));
   else if(k==='pu')full('#0b3b57',bigT('👍','#fff','min(55vw,65vh)'));else if(k==='pd')full('#4a0b0b',bigT('👎','#fff','min(55vw,65vh)'));
   else if(k==='pers')pickRole('pers','FICHA DEL PERSONAJE');else if(k==='eres')pickRole('eres','TÚ ERES…');else if(k==='el')pickRole('el','ESTE PERSONAJE TE HA ELEGIDO');else if(k==='two')pickRole('two','1 BUENO Y 1 MALO');
   else if(k==='pj')pickPlayer();else if(k==='num')pickNum();
   else if(k==='nieto'){var q=-1;S.tags.forEach(function(t,j){if((t||[]).indexOf('NIETO')>=0)q=j});if(q>=0)roleCard(S.roles[q],'ES TU NIETO Y SU PERSONAJE ES');else pickRole('ni','ES TU NIETO Y SU PERSONAJE ES…')}},
 pj2:function(i){closeOv();roleCard(S.roles[+i],'')},shn:function(i){closeOv();full('#1b1410',bigT(i,'#f2cc80','min(70vw,80vh)'))},
-nom:function(){go('nom1')},n2:function(i){go('nom2',{a:+i})},n3:function(i){go('vote',{a:V.a,b:+i,vt:S.names.map(function(){return false})})},
+nom:function(){if(!S.nights){alert('Las nominaciones empiezan el día 1: antes hay que jugar la primera noche y confirmar el amanecer.');return}go('nom1')},n2:function(i){go('nom2',{a:+i})},n3:function(i){go('vote',{a:V.a,b:+i,vt:S.names.map(function(){return false})})},
 tg:function(i){V.vt[i]=!V.vt[i];var sc=document.querySelector('.sc').scrollTop;render();document.querySelector('.sc').scrollTop=sc},
-reg:function(){var vs=[],g=[];S.names.forEach(function(n,i){if(V.vt[i]){vs.push(i);if(S.dead[i]){S.ghost[i]=false;g.push(i)}}});S.noms.push({d:S.day,a:V.a,b:V.b,v:vs,m:Math.ceil(alive()/2),g:g});save();go('votes')},
-del:function(i){if(!confirm('¿Borrar esta nominación?'))return;var n=S.noms.splice(+i,1)[0];(n.g||[]).forEach(function(k){S.ghost[k]=true});save();render()},
-exe:function(i){if(!confirm('¿Ejecutar a '+S.names[i]+'?'))return;S.dead[i]=true;S.noms.forEach(function(n){if(n.d===S.day&&n.b===+i)n.ex=true});save();go('grim')}
+reg:function(){var vs=[],g=[];S.names.forEach(function(n,i){if(V.vt[i]){vs.push(i);if(S.dead[i]){S.ghost[i]=false;g.push(i)}}});S.noms.push({d:S.day,a:V.a,b:V.b,v:vs,m:Math.ceil(alive()/2),g:g});lg('Nominación: '+S.names[V.a]+' nomina a '+S.names[V.b]+' — '+vs.length+(vs.length===1?' voto':' votos')+' (mayoría '+Math.ceil(alive()/2)+'): '+(vs.length?vs.map(function(i){return S.names[i]}).join(', '):'nadie')+'.');save();go('votes')},
+del:function(i){if(!confirm('¿Borrar esta nominación?'))return;var n=S.noms.splice(+i,1)[0];lg('Se anula la nominación de '+S.names[n.a]+' a '+S.names[n.b]+'.');(n.g||[]).forEach(function(k){S.ghost[k]=true});save();render()},
+exe:function(i){if(!confirm('¿Ejecutar a '+S.names[i]+'?'))return;S.dead[i]=true;S.noms.forEach(function(n){if(n.d===S.day&&n.b===+i)n.ex=true});lg('⚖ Ejecutado: '+S.names[i]+' ('+R[S.roles[i]].n+').');save();go('grim')}
 };
 document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-a')))t=t.parentNode;if(!t||t===document)return;var a=t.getAttribute('data-a'),i=t.getAttribute('data-i');if(t.disabled)return;if(A[a])A[a](i)});
 if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
