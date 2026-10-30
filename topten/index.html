@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><title>Top Ten</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Top Ten"><meta name="theme-color" content="#10131a">
+<link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-180.png">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;touch-action:manipulation}
+html,body{margin:0;height:100%;background:#10131a;color:#f3f0e6;font-family:-apple-system,Helvetica,Arial,sans-serif;overflow:hidden}
+#app{height:100%;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top,0px))}
+.sc{-webkit-flex:1;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;min-height:0;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column}.sc>*{-webkit-flex-shrink:0;flex-shrink:0}
+.mid{margin:auto;width:100%;max-width:640px;text-align:center;padding:8px}
+h1{font-size:44px;margin:4px 0;letter-spacing:1px}h2{margin:8px 0;font-size:24px}p{font-size:19px;line-height:1.35}
+.b{display:block;width:100%;border:0;border-radius:14px;background:#2a3142;color:#fff;font:700 20px -apple-system,Helvetica,Arial,sans-serif;padding:15px;margin:8px 0}
+.b.g{background:#1f9d55}.b.r{background:#d63a3a}.b.y{background:#e0a800;color:#10131a}.b.s{display:inline-block;width:auto;padding:10px 16px;font-size:16px;margin:4px}.b[disabled]{opacity:.35}
+.row{display:-webkit-flex;display:flex;-webkit-flex-wrap:wrap;flex-wrap:wrap;-webkit-justify-content:center;justify-content:center}
+.zone{border-radius:16px;padding:8px 12px;margin:6px 0;font-size:34px;min-height:62px;text-align:left}.zu{background:#1d2c4a}.zp{background:#3b2a1a}.zone small{display:block;font-size:13px;color:#b9c2d6;letter-spacing:1px}
+.th{border-radius:16px;padding:14px;margin:8px 0;background:#1b2130;text-align:left}.th b{font-size:22px;display:block;margin-bottom:8px}
+.sca{height:12px;border-radius:6px;background:-webkit-linear-gradient(left,#22c55e,#eab308,#ef4444);background:linear-gradient(90deg,#22c55e,#eab308,#ef4444)}.scl{display:-webkit-flex;display:flex;-webkit-justify-content:space-between;justify-content:space-between;font-size:14px;color:#c9d2e4;margin-top:4px}
+.num{font-size:min(60vw,52vh);font-size:34vw;font-size:min(60vw,52vh);font-weight:800;line-height:1;color:#fff;text-shadow:0 0 30px rgba(0,0,0,.4)}
+.card{display:inline-block;width:70px;height:96px;border-radius:12px;margin:4px;font-size:40px;font-weight:800;line-height:96px;text-align:center;color:#fff;position:relative}.card i{position:absolute;left:0;right:0;bottom:-18px;font-style:normal;font-size:12px;line-height:1;color:#b9c2d6}
+.bad{outline:4px solid #7a4a1a}input,select{width:100%;font:20px -apple-system,Helvetica,sans-serif;padding:11px;border-radius:10px;border:0;margin:4px 0;-webkit-user-select:text;user-select:text}
+.ov{position:fixed;left:0;top:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:9;display:-webkit-flex;display:flex;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;padding:16px}.ov>div{background:#1b2130;border-radius:18px;padding:20px;max-width:640px;max-height:100%;overflow-y:auto;text-align:left}
+[data-a]{cursor:pointer}@media (max-width:600px){h1{font-size:34px}.b{font-size:18px}.card{width:54px;height:76px;font-size:30px;line-height:76px}}
+</style></head><body><div id="app"></div>
+<script>
+var VER='v1';
+window.onerror=function(m,u,l){var a=document.getElementById('app');if(a)a.innerHTML='<div style="padding:20px;color:#f88;font:16px monospace">ERROR: '+m+' (línea '+l+')</div>'};
+var TH=[["Un animal que no te gustaría encontrar en tu cama","adorable","terrorífico"],["Algo que te despierta de madrugada","suave","insoportable"],["Un regalo de cumpleaños","decepcionante","el mejor del mundo"],["Un plan para el sábado por la noche","aburridísimo","épico"],["Una excusa para llegar tarde","poco creíble","imposible de rebatir"],["Algo que da vergüenza que te pillen haciendo","inocente","muy vergonzoso"],["Una comida para tu última cena","nunca","sin dudarlo"],["Un superpoder","inútil","increíble"],["Algo que se rompe y te da rabia","da igual","drama total"],["Un lugar para pasar las vacaciones","fatal","paraíso"],["Un sonido","relajante","irritante"],["Algo que se te pega al zapato","casi nada","asquerosísimo"],["Un trabajo","fácil","durísimo"],["Un personaje de película que da miedo","simpático","aterrador"],["Algo que huele","perfume","insoportable"],["Una mentira piadosa","inocente","imperdonable"],["Un deporte","tranquilo","extremo"],["Lo que encuentras en el bolsillo de un abrigo viejo","un tesoro","un horror"],["Una noticia por teléfono","buenísima","pésima"],["Una canción para bailar en una boda","lenta","imparable"],["Un animal de mascota","muy cómodo","muy peligroso"],["Algo que da calor","fresquito","achicharrante"],["Un motivo para llamar a un amigo a las 3 de la madrugada","tontería","emergencia"],["Algo que se hace en una primera cita","común","atrevidísimo"],["Algo que pesa","una pluma","imposible de levantar"],["Un monstruo bajo la cama","peluche","pesadilla"],["Un pretexto para no ir a una fiesta","flojo","definitivo"],["Algo que te hace llorar","una cebolla","el drama más grande"],["Un sabor","suave","fortísimo"],["Un profesor","simpatiquísimo","terror del colegio"],["Un escondite","evidente","imposible de encontrar"],["Algo que se grita en un estadio","susurro","ensordecedor"],["Algo que se pierde","sin importancia","una tragedia"],["Un invento","inútil","revolucionario"],["Un olor de cocina","tenue","imposible de ignorar"],["Algo que guardas en la nevera","apetece","da asco"],["Un viaje en transporte público","relajado","pesadilla"],["Un vecino","encantador","insufrible"],["Algo que se hace con una cuerda","inocente","peligroso"],["Un castigo","leve","brutal"]];
+var app=document.getElementById('app'),S=null,AC=null,V={s:'home'};
+try{S=JSON.parse(localStorage.getItem('tt'))}catch(e){}
+function save(){try{localStorage.setItem('tt',JSON.stringify(S))}catch(e){}}
+function E(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function shuf(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=a[i];a[i]=a[j];a[j]=t}return a}
+function btn(a,t,c,i){return '<button class="b '+(c||'')+'" data-a="'+a+'"'+(i!==undefined?' data-i="'+i+'"':'')+'>'+t+'</button>'}
+function show(h){app.innerHTML=h}function render(){var f=R[V.s];f&&f()}function go(s,x){V={s:s};for(var k in x)V[k]=x[k];render()}
+function hue(n){return 'hsl('+Math.round(120-(n-1)*13.3)+',70%,42%)'}
+function snd(k){try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();var q={ok:[[660,0],[880,.1]],poop:[[200,0],[140,.12],[90,.24]],win:[[523,0],[659,.12],[784,.24],[1047,.36]],lose:[[300,0],[220,.2],[150,.4],[100,.6]]}[k];q.forEach(function(n){var o=AC.createOscillator(),g=AC.createGain(),t=AC.currentTime+n[1];o.type=k==='poop'||k==='lose'?'sawtooth':'triangle';o.frequency.value=n[0];g.gain.setValueAtTime(.25,t);g.gain.exponentialRampToValueAtTime(.001,t+.25);o.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+.3)})}catch(e){}}
+function zones(){var u='',p='',i;for(i=0;i<S.u;i++)u+='🦄';for(i=0;i<S.p;i++)p+='💩';return '<div class="zone zu"><small>ZONA DE UNICORNIOS · '+S.u+'</small>'+(u||'—')+'</div><div class="zone zp"><small>ZONA DE MIERDA · '+S.p+'</small>'+(p||'—')+'</div>'}
+function nNum(){return S.names.length>=9?S.names.length-1:S.names.length}
+function pickThemes(){S.used=S.used||[];var l=[];for(var i=0;i<TH.length;i++)if(S.used.indexOf(i)<0)l.push(i);if(l.length<2){S.used=[];l=TH.map(function(x,i){return i})}S.pair=shuf(l).slice(0,2)}
+function theme(i){var t=TH[i];return '<b>'+E(t[0])+'</b><div class="sca"></div><div class="scl"><span>1 · '+E(t[1])+'</span><span>10 · '+E(t[2])+'</span></div>'}
+var R={
+home:function(){show('<div class="sc"><div class="mid"><h1>TOP TEN</h1><p style="color:#9fb0cc">Ordenad vuestras respuestas del 1 al 10 sin saber qué número tiene cada uno.<br>🦄 Salvavidas · 💩 Fallos</p>'+(S&&S.phase&&S.phase!=='end'&&S.names?btn('resume','CONTINUAR PARTIDA','g'):'')+btn('setup','NUEVA PARTIDA','r')+btn('rules','CÓMO SE JUEGA','')+'<div style="color:#5d6b85;font-size:12px;margin-top:10px">'+VER+' · versión casera, temas originales</div></div></div>')},
+setup:function(){var n=V.n||4,h='<div class="sc"><div class="mid"><h2>¿CUÁNTOS JUGADORES?</h2><div class="row">';for(var k=3;k<=10;k++)h+='<button class="b s'+(k===n?' g':'')+'" data-a="np" data-i="'+k+'" style="min-width:56px">'+k+'</button>';
+  h+='</div><p style="font-size:15px;color:#9fb0cc">Se sientan en círculo; el capitán pasa a ser el jugador de su izquierda cada ronda.</p>';for(var i=0;i<n;i++)h+='<input class="nm" placeholder="Jugador '+(i+1)+'" maxlength="16" value="'+E((V.names&&V.names[i])||'')+'">';
+  h+='<h2 style="font-size:19px">Primer capitán</h2><select id="c0">';for(i=0;i<n;i++)h+='<option value="'+i+'">Jugador '+(i+1)+'</option>';show(h+'</select>'+btn('start','EMPEZAR','g')+btn('home','VOLVER','s')+'</div></div>')},
+theme:function(){var h='<div class="sc"><div class="mid"><div style="color:#9fb0cc;font-size:15px">RONDA '+S.round+' DE 5</div>'+zones()+'<h2>Capitán: <span style="color:#e0a800">'+E(S.names[S.cap])+'</span></h2><select id="cs" data-a="capc">';S.names.forEach(function(n,i){h+='<option value="'+i+'"'+(i===S.cap?' selected':'')+'>'+E(n)+'</option>'});
+  h+='</select><p style="font-size:16px;color:#9fb0cc">El capitán lee <b>uno</b> de estos dos temas en voz alta:</p>';S.pair.forEach(function(i){h+='<div class="th" data-a="pt" data-i="'+i+'">'+theme(i)+'</div>'});
+  show(h+(S.names.length>=9?'<p style="font-size:14px;color:#9fb0cc">Con 9 o más jugadores el capitán no tiene número.</p>':'')+btn('home','⌂ SALIR','s')+'</div></div>')},
+pass:function(){var pl=S.deal[S.di];show('<div class="sc"><div class="mid"><div class="th">'+theme(S.th)+'</div><h2>Pasa la tablet a</h2><div class="num" style="font-size:12vw;font-size:min(12vw,14vh)">'+E(S.names[pl])+'</div><p>Cuando nadie más mire, descubre tu número.</p>'+btn('see','VER MI NÚMERO','r')+'<div style="color:#9fb0cc">'+(S.di+1)+' de '+S.deal.length+'</div></div></div>')},
+see:function(){var pl=S.deal[S.di],n=S.nums[pl];show('<div class="mid" style="background:'+hue(n)+';border-radius:24px;padding:16px"><div style="font-size:18px">'+E(S.names[pl])+' · TU NÚMERO ES</div><div class="num">'+n+'</div><div style="font-size:16px;margin-bottom:8px">1 = '+E(TH[S.th][1])+' · 10 = '+E(TH[S.th][2])+'</div><div style="font-size:15px;margin-bottom:6px">Inventa una respuesta al tema que refleje ese número. No puedes decirlo, ni siquiera indirectamente.</div>'+btn('hide','OCULTAR Y PASAR','')+'</div>')},
+clues:function(){show('<div class="sc"><div class="mid">'+zones()+'<div class="th">'+theme(S.th)+'</div><h2>¡A responder!</h2><p>Cada jugador dice en voz alta su respuesta (el capitán primero, los demás en cualquier orden). Se puede repetir pero no cambiar.</p>'+btn('order','EMPEZAR A ORDENAR','g')+'</div></div>')},
+order:function(){var h='<div class="sc"><div class="mid" style="max-width:760px">'+zones()+'<h2 style="margin:4px 0">Capitán '+E(S.names[S.cap])+': nombra al jugador con el número MÁS BAJO</h2><div class="row" style="min-height:120px;margin-bottom:14px">';
+  S.ord.forEach(function(pl,k){h+='<div class="card'+(S.hist[k]?' bad':'')+'" style="background:'+hue(S.nums[pl])+'">'+S.nums[pl]+'<i>'+E(S.names[pl])+'</i></div>'});if(!S.ord.length)h+='<div style="color:#5d6b85;margin:auto">La mesa está vacía</div>';
+  h+='</div><div class="row">';S.deal.forEach(function(pl){if(S.ord.indexOf(pl)<0)h+='<button class="b s" data-a="rev" data-i="'+pl+'">'+E(S.names[pl])+'</button>'});
+  show(h+'</div>'+(S.ord.length?btn('undo','↶ DESHACER LA ÚLTIMA','s'):'')+'<p style="font-size:14px;color:#9fb0cc">Solo se pierde un unicornio si la carta anterior es MÁS ALTA que la que se acaba de girar.</p></div></div>')},
+roundend:function(){var last=S.round>=5;show('<div class="sc"><div class="mid">'+zones()+'<h2>RONDA '+S.round+' TERMINADA</h2><div class="row" style="margin-bottom:16px">'+S.ord.map(function(pl,k){return '<div class="card'+(S.hist[k]?' bad':'')+'" style="background:'+hue(S.nums[pl])+'">'+S.nums[pl]+'<i>'+E(S.names[pl])+'</i></div>'}).join('')+'</div>'+(last?btn('fin','VER RESULTADO FINAL','g'):btn('next','SIGUIENTE RONDA','g'))+'</div></div>')},
+end:function(){var w=S.u>0,lv=S.u===0?'¡Menudo fracaso!':S.u<S.p?'No está mal, ¡otro intento y lo bordáis!':S.p>0?'¡Sois unos profesionales!':'¡CAMPEONES! Puntuación perfecta.';
+  show('<div class="sc"><div class="mid"><h1>'+(w?'🦄 ¡VICTORIA!':'💩 FIN DEL JUEGO')+'</h1>'+zones()+'<h2>'+lv+'</h2>'+(V.lose?'<p>Todas las fichas han caído en la zona de mierda.</p>':'<p>Os quedan unicornios al final de la ronda 5.</p>')+btn('setup','NUEVA PARTIDA','r')+btn('home','⌂ INICIO','s')+'</div></div>')}
+};
+function newRound(){S.pair&&0;pickThemes();S.ord=[];S.hist=[];S.phase='theme'}
+function dealNums(){var n=S.names.length,k=nNum(),pool=shuf([1,2,3,4,5,6,7,8,9,10]).slice(0,k),ord=[],i;S.nums={};for(i=0;i<n;i++){var pl=(S.cap+i)%n;if(n>=9&&pl===S.cap)continue;ord.push(pl);S.nums[pl]=pool.shift()}S.deal=ord;S.di=0}
+var A={
+home:function(){go('home')},setup:function(){V={s:'setup',n:V.n||4,names:S&&S.names};render()},np:function(i){var f=document.querySelectorAll('input.nm'),nm=[];for(var k=0;k<f.length;k++)nm.push(f[k].value);V={s:'setup',n:+i,names:nm};render()},
+rules:function(){var d=document.createElement('div');d.className='ov';d.id='ov';d.innerHTML='<div><h2>Cómo se juega</h2><p style="font-size:16px">Es un juego <b>cooperativo</b>: todos ganan o pierden juntos. Una partida son <b>5 rondas</b>. Hay tantas fichas como jugadores (con 9 o más, una menos), todas empiezan como <b>🦄 unicornios</b>.<br><br>1. El <b>capitán</b> de la ronda lee uno de los dos temas. Cada tema es una escala del 1 al 10.<br>2. Cada jugador ve en secreto su <b>número</b> (los números no se repiten).<br>3. Cada uno inventa una respuesta al tema que refleje su número, sin decirlo.<br>4. El capitán intenta <b>ordenar</b> a los jugadores de menor a mayor: nombra a uno, su carta se gira, y así con todos (también la suya).<br>5. Si una carta es <b>más baja que la anterior</b>, un unicornio se convierte en <b>💩</b>.<br><br>Si todas las fichas acaban en 💩, <b>perdéis</b>. Si al terminar la ronda 5 queda algún 🦄, <b>ganáis</b>.</p><button class="b" data-a="cl">ENTENDIDO</button></div>';document.body.appendChild(d)},cl:function(){var o=document.getElementById('ov');if(o)o.parentNode.removeChild(o)},
+start:function(){var f=document.querySelectorAll('input.nm'),nm=[];for(var i=0;i<f.length;i++){nm.push(f[i].value.trim()||'Jugador '+(i+1))}var c=+document.getElementById('c0').value;
+  S={names:nm,cap:c,round:1,used:[],ord:[],hist:[],nums:{},deal:[],di:0,th:0};S.u=nNum();S.p=0;pickThemes();S.phase='theme';save();go('theme')},
+resume:function(){var m={theme:'theme',pass:'pass',clues:'clues',order:'order',roundend:'roundend'};go(m[S.phase]||'theme')},
+capc:function(){S.cap=+document.getElementById('cs').value;save()},
+pt:function(i){S.th=+i;S.used.push(+i);S.pair.forEach(function(x){if(S.used.indexOf(x)<0)S.used.push(x)});dealNums();S.phase='pass';save();go('pass')},
+see:function(){go('see')},hide:function(){S.di++;if(S.di>=S.deal.length){S.phase='clues';save();go('clues')}else go('pass')},
+order:function(){S.ord=[];S.hist=[];S.phase='order';save();go('order')},
+rev:function(i){i=+i;var n=S.nums[i],prev=S.ord.length?S.nums[S.ord[S.ord.length-1]]:0,bad=S.ord.length>0&&n<prev;S.ord.push(i);S.hist.push(bad);
+  if(bad){S.u--;S.p++;snd('poop')}else snd('ok');save();
+  if(S.u<=0){snd('lose');S.phase='end';save();go('end',{lose:1});return}
+  if(S.ord.length>=S.deal.length){S.phase='roundend';save();go('roundend')}else render()},
+undo:function(){if(!S.ord.length)return;var b=S.hist.pop();S.ord.pop();if(b){S.u++;S.p--}save();render()},
+next:function(){S.round++;S.cap=(S.cap+1)%S.names.length;pickThemes();S.ord=[];S.hist=[];S.phase='theme';save();go('theme')},
+fin:function(){S.phase='end';save();snd(S.u>0?'win':'lose');go('end')}
+};
+document.addEventListener('click',function(e){var t=e.target;while(t&&t!==document&&!(t.getAttribute&&t.getAttribute('data-a')))t=t.parentNode;if(!t||t===document)return;var a=t.getAttribute('data-a'),i=t.getAttribute('data-i');if(t.disabled)return;if(A[a])A[a](i)});
+document.addEventListener('change',function(e){if(e.target.id==='cs')A.capc()});
+if('serviceWorker' in navigator)window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});
+render();
+</script></body></html>
