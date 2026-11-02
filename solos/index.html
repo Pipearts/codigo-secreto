@@ -196,7 +196,7 @@ build(best,false);return M}
 function qrCanvas(text,css){var m=qrMatrix(text),n=m.length,s=Math.max(2,Math.floor(640/(n+8))),cv=document.createElement('canvas');cv.width=cv.height=(n+8)*s;var x=cv.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,cv.width,cv.height);x.fillStyle='#000';for(var r=0;r<n;r++)for(var c=0;c<n;c++)if(m[r][c])x.fillRect((c+4)*s,(r+4)*s,s,s);cv.style.width=cv.style.height=css+'px';return cv}
 
 /* Pon aquí la dirección pública de la web cuando la tengas (opcional). Ej: "https://tuusuario.github.io/solos-webapp/" */
-var SITE_URL="https://pipeart.github.io/codigo-secreto/";
+var SITE_URL="https://pipeart.github.io/codigo-secreto/solos/";
 function siteBase(){return (SITE_URL||location.href.split('#')[0].split('?')[0])}
 (function(){var h=document.getElementById('hq');h.appendChild(qrCanvas(siteBase()+'#qr1',104));
 if(!SITE_URL&&/^(file|http:\/\/localhost|http:\/\/127)/.test(location.href)){var n=document.createElement('span');n.className='note';n.textContent='Vista local: al publicar la web, el QR se actualiza solo';h.parentNode.appendChild(n)}})();
